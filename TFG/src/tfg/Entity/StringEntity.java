@@ -14,9 +14,10 @@ public class StringEntity implements Entity{
         StringEntity b = (StringEntity)obj;
         return (this.s == b.s);
     }
-    
 
-    
-    
-    
+
+    @Override
+    public Class<?> getType() {
+        return String.class;
+    }
 }

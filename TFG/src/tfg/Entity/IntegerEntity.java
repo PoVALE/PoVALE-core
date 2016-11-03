@@ -21,11 +21,10 @@ public class IntegerEntity implements Entity{
         IntegerEntity b = (IntegerEntity)obj;
         return (this.n == b.n);
     }
-    
-    
- 
-    
 
-    
-    
+
+    @Override
+    public Class<?> getType() {
+        return Integer.class;
+    }
 }

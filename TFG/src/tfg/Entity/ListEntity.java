@@ -19,6 +19,10 @@ public class ListEntity implements Entity{
     public boolean addEntity(Entity e){
         return list.add(e);
     }
-    
-    
+
+
+    @Override
+    public Class<?> getType() {
+        return  list.getClass();
+    }
 }
