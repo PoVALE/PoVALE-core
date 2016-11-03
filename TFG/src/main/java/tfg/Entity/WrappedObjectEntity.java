@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tfg.Entity;import tfg.Entity.Entity;
+package tfg.Entity;
 
 /**
  * These are any entities for which we don't have specific support. This is
@@ -36,13 +36,13 @@ public final class WrappedObjectEntity<T> implements Entity {
     /**
      * A Wrapped entity returns the underlying object's representation as a
      * String.
+     *
      * @return object.get().toString()
      */
     public final String toString() {
         return wrapped.toString();
     }
 
-    @Override
     public final Class<?> getType() {
         return wrapped.getClass();
     }
