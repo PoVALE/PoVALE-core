@@ -10,6 +10,11 @@ public class IntegerEntity implements Entity{
     public IntegerEntity(int n) {
         this.n = n;
     }
+
+    public int getValue() {
+        return n;
+    }
+   
     
     @Override
     public boolean equals(Object obj) {
