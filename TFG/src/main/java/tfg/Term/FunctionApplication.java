@@ -28,7 +28,7 @@ public class FunctionApplication implements Term {
             list.add(t.evaluate(env));
         }
 
-        return f.call(list);
+        return f.call(list.toArray(new Entity[list.size()]));
     }
 
 }

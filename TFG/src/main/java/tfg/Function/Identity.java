@@ -23,7 +23,7 @@ import tfg.annotation.CallableMethod;
  *
  * @author Santiago Saavedra
  */
-public class IdentityFunction extends Function {
+public class Identity extends Function {
 
     @CallableMethod
     public WrappedObjectEntity<String> apply(WrappedObjectEntity<String> elt) {

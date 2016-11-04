@@ -15,13 +15,10 @@
  */
 package tfg.Function;
 
+import com.google.common.reflect.TypeToken;
 import tfg.Entity.Entity;
-import tfg.Entity.WrappedObjectEntity;
 import tfg.annotation.CallableMethod;
 import tfg.internal.DynamicallyCallable;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 /**
  * This is the base Function class which handles functions on our system.
@@ -31,13 +28,13 @@ import java.lang.reflect.Type;
  * Usage: functions must extend this base class, and usually implement two
  * methods: {@link #getName()} and another method which must contain the
  * {@link CallableMethod} annotation. See the sample
- * {@link IdentityFunction} for more details.
+ * {@link Identity} for more details.
  * <p>
  * The result in getName will provide the (unqualified) function name, to
  * be appended to the plugin package name in order to be used in the XML
  * documents.
  * <p>
- * The main entry point from the system is the {@link #call(Entity...)}
+ * The main entry point from the system is the {@link #call(Object[])}
  * method, which finds the appropriate annotated function and calls it. In
  * case several such functions exist (which might happen if there are more
  * than one CallableMethod-annotated functions), all of them are tried
@@ -46,42 +43,4 @@ import java.lang.reflect.Type;
  * @author Santiago Saavedra
  */
 abstract public class Function extends DynamicallyCallable<Entity, Entity> {
-
-    // Overridden just to remove the type erasure for Javadoc et al.
-    @Override
-    public Entity call(Entity... params) {
-        if (Entity.class.isAssignableFrom(getCallableMethod().getReturnType())) {
-            return super.call(params);
-        } else {
-            throw new RuntimeException(new IllegalAccessException(
-                    String.format(
-                            "Target method %s does not return an Entity.",
-                            getCallableMethod())
-            ));
-        }
-    }
-
-    /**
-     * Typecheck for a type including generic types (for taking
-     * {@link WrappedObjectEntity} objects into consideration).
-     *
-     * @param param
-     * @param parameterType
-     * @param genericParameterType
-     * @return
-     */
-    @Override
-    protected boolean typecheck_type(Entity param, Class<?> parameterType, Type genericParameterType) {
-
-        if (super.typecheck_type(param, parameterType, genericParameterType)) {
-            if (parameterType.equals(WrappedObjectEntity.class) &&
-                    genericParameterType instanceof ParameterizedType) {
-                ParameterizedType g = (ParameterizedType) genericParameterType;
-                Class<?> typeArgument = (Class<?>) g.getActualTypeArguments()[0];
-                return typeArgument.isAssignableFrom(param.getType());
-            }
-            return true;
-        }
-        return false;
-    }
 }

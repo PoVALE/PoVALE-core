@@ -23,11 +23,11 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Santiago Saavedra
  */
-public final class IdentityFunctionTest {
+public final class IdentityTest {
     @org.junit.Test
     public void apply_on_correct_parameters() throws Exception {
 
-        Function f = new IdentityFunction();
+        Function f = new Identity();
 
         WrappedObjectEntity<String> param = new WrappedObjectEntity<>("Hello, world");
 
@@ -37,7 +37,7 @@ public final class IdentityFunctionTest {
 
     @org.junit.Test(expected = RuntimeException.class)
     public void apply_on_incorrect_parameters() throws Exception {
-        Function f = new IdentityFunction();
+        Function f = new Identity();
         System.out.println("We got: " + f.call(new WrappedObjectEntity<>(6)));
     }
 

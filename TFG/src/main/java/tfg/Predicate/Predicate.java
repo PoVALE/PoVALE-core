@@ -35,7 +35,7 @@ import tfg.internal.DynamicallyCallable;
  * be appended to the plugin package name in order to be used in the XML
  * documents.
  * <p>
- * The main entry point from the system is the {@link #call(Entity...)}
+ * The main entry point from the system is the {@link #call(Object[])}
  * method, which finds the appropriate annotated method and calls it. In
  * case several such methods exist (which might happen if there are more
  * than one CallableMethod-annotated methods), all of them are tried
@@ -44,10 +44,5 @@ import tfg.internal.DynamicallyCallable;
  * @author Santiago Saavedra
  */
 public abstract class Predicate extends DynamicallyCallable<Entity, Boolean> {
-    @Override
-    public Boolean call(Entity... params) {
-        return super.call(params);
-    }
 
-    public abstract String getName();
 }

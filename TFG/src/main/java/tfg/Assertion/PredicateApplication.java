@@ -28,6 +28,6 @@ public class PredicateApplication implements Assertion {
 
         Predicate p = env.getPredicate(predicate);
 
-        return p.call(list);
+        return p.call(list.toArray(new Entity[list.size()]));
     }
 }
