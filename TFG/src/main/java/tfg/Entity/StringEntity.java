@@ -1,4 +1,4 @@
-package tfg.Entity;
+package tfg.entity;
 
 
 public class StringEntity implements Entity{
@@ -17,7 +17,9 @@ public class StringEntity implements Entity{
 
 
     @Override
-    public Class<?> getType() {
-        return String.class;
+    public Class<? extends Entity> getType() {
+        return  StringEntity.class;
     }
+    
+    
 }

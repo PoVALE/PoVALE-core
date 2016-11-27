@@ -1,6 +1,6 @@
-package tfg.Entity;
+package tfg.entity;
 
-import tfg.Entity.Entity;
+import tfg.entity.Entity;
 import java.util.List;
 
 public class ListEntity implements Entity{
@@ -19,10 +19,9 @@ public class ListEntity implements Entity{
     public boolean addEntity(Entity e){
         return list.add(e);
     }
-
-
+    
     @Override
-    public Class<?> getType() {
-        return  list.getClass();
+    public Class<? extends Entity> getType() {
+        return  ListEntity.class;
     }
 }

@@ -1,5 +1,6 @@
-package tfg.Entity;
+package tfg.entity;
 
 public interface Entity {
-    Class<?> getType();
+    
+    Class<? extends Entity> getType();
 }

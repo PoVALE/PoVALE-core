@@ -3,18 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tfg.Assertion;
+package tfg.assertion;
 
-import tfg.Entity.Entity;
-import tfg.Entity.ListEntity;
-import tfg.Environment.Environment;
-import tfg.Term.Term;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import tfg.assertionError.ExistOneError;
+import tfg.entity.Entity;
+import tfg.entity.ListEntity;
+import tfg.environment.Environment;
+import tfg.term.Term;
 
 public class ExistOne implements Assertion {
 
-    private String variable;
-    private Term termino;
-    private Assertion aserto;
+    private final String variable;
+    private final Term termino;
+    private final Assertion aserto;
 
     public ExistOne(String variable, Term termino, Assertion aserto) {
         this.variable = variable;
@@ -23,27 +27,45 @@ public class ExistOne implements Assertion {
     }
 
     @Override
-    public boolean check(Environment env) {
+    public Optional<AssertionError> check(Environment env) {
 
         ListEntity list = (ListEntity) termino.evaluate(env);
-
         boolean result = false;
+        Optional<ExistOneError> error = Optional.empty();
+        List<Entity> cumple = new LinkedList();
+        String errorString = "";
 
         for (Entity e : list.getList()) {
 
             env.getValues().replace(variable, e);
 
-            if (aserto.check(env)) {
+            if (!aserto.check(env).isPresent()) {
+                
+                cumple.add(e);
 
-                if (result == true) {
+                if (result) {
+                    
                     result = false;
+                    ExistOneError existOneError = new ExistOneError(variable, cumple, aserto);
+                    error = Optional.of(existOneError); 
                     break;
+                    
                 } else {
                     result = true;
                 }
+                
+                
+            }
+            else{
+                errorString = errorString.concat(aserto.check(env).get().getLocalizedMessage());
             }
 
         }
-        return result;
+        
+        if(!result){
+             ExistOneError existOneError = new ExistOneError(variable, termino, aserto,errorString);
+             error = Optional.of(existOneError); 
+        }
+        return (Optional) error;
     }
 }

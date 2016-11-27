@@ -1,14 +1,14 @@
-package tfg.Environment;
+package tfg.environment;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import tfg.Entity.Entity;
+import tfg.entity.Entity;
 import java.util.Map;
 import java.util.Set;
-import tfg.Function.Function;
-import tfg.Predicate.Predicate;
-import tfg.Plugin.PluginInfo;
+import tfg.function.Function;
+import tfg.predicate.Predicate;
+import tfg.plugin.PluginInfo;
 
 public class Environment {
 

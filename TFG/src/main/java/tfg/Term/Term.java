@@ -1,7 +1,7 @@
-package tfg.Term;
+package tfg.term;
 
-import tfg.Entity.Entity;
-import tfg.Environment.Environment;
+import tfg.entity.Entity;
+import tfg.environment.Environment;
 
 public interface Term {
 

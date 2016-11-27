@@ -1,8 +1,9 @@
-package tfg.Assertion;
+package tfg.assertion;
 
-import tfg.Environment.Environment;
+import java.util.Optional;
+import tfg.environment.Environment;
 
 public interface Assertion {
 
-    public boolean check(Environment env);
+    public Optional<AssertionError> check(Environment env);
 }

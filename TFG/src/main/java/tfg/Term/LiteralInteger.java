@@ -1,8 +1,10 @@
-package tfg.Term;
+package tfg.term;
 
-import tfg.Entity.Entity;
-import tfg.Entity.IntegerEntity;
-import tfg.Environment.Environment;
+import tfg.entity.Entity;
+import tfg.entity.IntegerEntity;
+import tfg.environment.Environment;
+import tfg.term.Term;
+
 
 
 public class LiteralInteger implements Term {

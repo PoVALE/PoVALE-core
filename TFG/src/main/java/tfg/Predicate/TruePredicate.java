@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package tfg.Predicate;
+package tfg.predicate;
 
-import tfg.Entity.Entity;
-import tfg.Entity.WrappedObjectEntity;
-import tfg.Predicate.Predicate;
+import tfg.entity.Entity;
+import tfg.entity.WrappedObjectEntity;
+import tfg.predicate.Predicate;
 import tfg.annotation.CallableMethod;
 
 /**

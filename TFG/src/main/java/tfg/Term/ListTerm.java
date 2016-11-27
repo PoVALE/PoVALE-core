@@ -1,10 +1,12 @@
-package tfg.Term;
+package tfg.term;
 
 import java.util.LinkedList;
 import java.util.List;
-import tfg.Entity.Entity;
-import tfg.Entity.ListEntity;
-import tfg.Environment.Environment;
+import tfg.entity.Entity;
+import tfg.entity.ListEntity;
+import tfg.environment.Environment;
+import tfg.term.Term;
+
 
 public class ListTerm implements Term {
 
@@ -13,7 +15,6 @@ public class ListTerm implements Term {
     public ListTerm(List<Term> terms) {
         this.terms = terms;
     }
-
 
     public Entity evaluate(Environment env) {
 

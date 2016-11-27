@@ -1,20 +1,19 @@
 
-package tfg.Plugin;
+package tfg.plugin;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tfg.Environment.Environment;
+import tfg.environment.Environment;
 
 public class Import {
  
-    private String plugin;
+    private final String plugin;
 
     public Import(String plugin) {
         this.plugin = plugin;
         addPlugin();
     }
     
-    //boolean para en caso de error(?)
     public void addPlugin(){
         
         Environment e = new Environment();

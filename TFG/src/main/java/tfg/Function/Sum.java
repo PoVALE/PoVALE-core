@@ -1,24 +1,27 @@
-
-package tfg.Function;
+package tfg.function;
 
 import java.util.List;
-import tfg.Entity.Entity;
-import tfg.Entity.IntegerEntity;
+import tfg.annotation.CallableMethod;
+import tfg.entity.Entity;
+import tfg.entity.IntegerEntity;
 
-public class Sum extends Function{
+public class Sum extends Function {
 
-    public Sum(String name, List<Class<?>> argType, Class<?> resultType) {
-        super(name, argType, resultType);
+    public Sum() {
+    }
+
+    @CallableMethod
+    public IntegerEntity apply(IntegerEntity... args) {
+        int n = 0;
+        for (IntegerEntity e : args) {
+            n += e.getValue();
+        }
+        return new IntegerEntity(n);
     }
 
     @Override
-    public Entity call(List<Entity> args) {
-       int n=0;
-       for(Entity e:args){
-        IntegerEntity ie = (IntegerEntity)e;
-        n += ie.getValue();
-       }
-       return new IntegerEntity(n);         
+    public String getName() {
+        return "sum";
     }
-   
+
 }

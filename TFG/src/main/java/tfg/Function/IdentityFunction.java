@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tfg.Function;import tfg.Entity.WrappedObjectEntity;
+package tfg.function;import tfg.entity.WrappedObjectEntity;
 import tfg.annotation.CallableMethod;
 
 /**

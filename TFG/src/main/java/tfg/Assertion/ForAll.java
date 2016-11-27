@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tfg.Assertion;
+package tfg.assertion;
 
-import tfg.Entity.Entity;
-import tfg.Entity.ListEntity;
-import tfg.Environment.Environment;
-import tfg.Term.Term;
+import java.util.Optional;
+import tfg.assertionError.ForAllError;
+import tfg.entity.Entity;
+import tfg.entity.ListEntity;
+import tfg.environment.Environment;
+import tfg.term.Term;
 
-
-public class ForAll implements Assertion{
+public class ForAll implements Assertion {
 
     private String variable;
     private Term termino;
@@ -22,24 +23,30 @@ public class ForAll implements Assertion{
         this.termino = termino;
         this.aserto = aserto;
     }
-    
+
     @Override
-    public boolean check(Environment env) {
-        
-        ListEntity list = (ListEntity) termino.evaluate(env); //devuelve lista de entidades
-        
+    public Optional<AssertionError> check(Environment env) {
+
+        ListEntity list = (ListEntity) termino.evaluate(env);
         boolean result = true;
-     
-        for(Entity e: list.getList()){
-            
+        Optional<ForAllError> error = Optional.empty();
+        String errorString = "";
+
+        for (Entity e : list.getList()) {
+
             env.getValues().replace(variable, e);
-            
-            if(!aserto.check(env)){
+
+            if (aserto.check(env).isPresent()) {
                 result = false;
-                break;
+                errorString = errorString.concat(aserto.check(env).get().getLocalizedMessage());
             }
-        } 
-        return result;
+        }
+
+        if (!result) {
+            ForAllError forAllError = new ForAllError(errorString);
+            error = Optional.of(forAllError);
+        }
+
+        return (Optional) error;
     }
 }
-   

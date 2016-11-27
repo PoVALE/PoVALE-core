@@ -1,6 +1,7 @@
-package tfg.Assertion;
+package tfg.assertion;
 
-import tfg.Environment.Environment;
+import java.util.Optional;
+import tfg.environment.Environment;
 
 public class AssertTrue implements Assertion {
 
@@ -8,8 +9,10 @@ public class AssertTrue implements Assertion {
         super();
     }
 
-    public boolean check(Environment env) {
-        return true;
+    @Override
+    public Optional<AssertionError> check(Environment env) {
+        Optional<AssertionError> error = Optional.empty();
+        return (Optional) error;
     }
 
 }

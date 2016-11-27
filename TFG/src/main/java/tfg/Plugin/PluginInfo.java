@@ -1,41 +1,20 @@
 
-package tfg.Plugin;
+package tfg.plugin;
 
 import java.util.List;
-import tfg.Entity.Entity;
-import tfg.Function.Function;
-import tfg.Predicate.Predicate;
+import tfg.entity.Entity;
+import tfg.function.Function;
+import tfg.predicate.Predicate;
 
-public class PluginInfo {
+public interface PluginInfo {
     
-    private String idPlugin;
-    private List<Function> functions;
-    private List<Predicate> predicates;
-    private List<Entity> entities;
-
+    public  String getIdPlugin();
     
-    public PluginInfo(String idPlugin, List<Function> functions, List<Predicate> predicates, List<Entity> entities) {
-        this.idPlugin = idPlugin;
-        this.functions = functions;
-        this.predicates = predicates;
-        this.entities = entities;
-    }
+    public List<Function> getFunctions();
     
-    public String getIdPlugin(){
-        return idPlugin;
-    }
-    
-    public List<Function> getFunctions(){
-        return functions;
-    }
-    
-    public List<Predicate> getPredicates(){
-        return predicates;
-    }
+    public  List<Predicate> getPredicates();
    
-    public List<Entity> getEntities(){
-        return entities;
-    }
+    public  List<Entity> getEntities();
     
     
 }

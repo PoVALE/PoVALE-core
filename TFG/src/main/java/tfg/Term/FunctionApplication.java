@@ -1,11 +1,13 @@
-package tfg.Term;
+package tfg.term;
 
-import tfg.Entity.Entity;
-import tfg.Environment.Environment;
-import tfg.Function.Function;
+import tfg.entity.Entity;
+import tfg.environment.Environment;
+import tfg.function.Function;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import tfg.entity.ListEntity;
 
 public class FunctionApplication implements Term {
 
@@ -18,17 +20,23 @@ public class FunctionApplication implements Term {
     }
     
 
+    @Override
     public Entity evaluate(Environment env) {
-
+        
         List<Entity> list = new LinkedList<>();
         
         Function f = env.getFunction(function);
 
-        for (Term t : args) {
+        args.stream().forEach((t) -> {
             list.add(t.evaluate(env));
-        }
-
-        return f.call(list);
+        });
+        
+        return f.call(new ListEntity(list));// pasar List<Entity>
+        
+        
+        
+        
+        
     }
 
 }

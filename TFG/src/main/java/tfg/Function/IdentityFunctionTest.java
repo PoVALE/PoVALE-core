@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package tfg.Function;
+package tfg.function;
 
-import tfg.Entity.WrappedObjectEntity;
+import tfg.entity.WrappedObjectEntity;
 
 import static org.junit.Assert.assertEquals;
 

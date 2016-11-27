@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package tfg.Predicate;
+package tfg.predicate;
 
-import tfg.Entity.Entity;
+import tfg.entity.Entity;
 import tfg.annotation.CallableMethod;
 import tfg.internal.DynamicallyCallable;
 

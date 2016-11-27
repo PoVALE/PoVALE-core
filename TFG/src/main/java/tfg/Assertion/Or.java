@@ -1,11 +1,13 @@
-package tfg.Assertion;
+package tfg.assertion;
 
-import tfg.Environment.Environment;
+import tfg.environment.Environment;
 import java.util.List;
+import java.util.Optional;
+import tfg.assertionError.OrError;
 
 public class Or implements Assertion {
 
-    private List<Assertion> assertions;
+    private final List<Assertion> assertions;
 
     public Or(List<Assertion> assertions) {
         super();
@@ -16,19 +18,29 @@ public class Or implements Assertion {
         return assertions;
     }
 
-    public void setAssertions(List<Assertion> assertions) {
-        this.assertions = assertions;
-    }
-
-    public boolean check(Environment env) {
+    @Override
+    public Optional<AssertionError> check(Environment env) {
+        
         boolean orResult = false;
+        Optional<OrError> error = Optional.empty();
+        String errorString = "";
 
         for (int i = 0; i < assertions.size() && !orResult; i++) {
-            if (assertions.get(i).check(env)) {
+
+            if (assertions.get(i).check(env).isPresent()) {
                 orResult = true;
+                break;
+            } else {
+                errorString = errorString.concat(assertions.get(i).check(env).get().getLocalizedMessage());
             }
         }
 
-        return orResult;
+        if (!orResult) {
+            OrError orError = new OrError(errorString);
+            error = Optional.of(orError);
+
+        }
+
+        return (Optional) error;
     }
 }

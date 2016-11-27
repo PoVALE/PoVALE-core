@@ -1,6 +1,4 @@
-package tfg.Entity;
-
-import tfg.Entity.Entity;
+package tfg.entity;
 
 
 public class IntegerEntity implements Entity{
@@ -15,16 +13,14 @@ public class IntegerEntity implements Entity{
         return n;
     }
    
-    
     @Override
     public boolean equals(Object obj) {
         IntegerEntity b = (IntegerEntity)obj;
         return (this.n == b.n);
     }
 
-
     @Override
-    public Class<?> getType() {
-        return Integer.class;
+    public Class<? extends Entity> getType() {
+        return IntegerEntity.class;
     }
 }

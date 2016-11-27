@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tfg.Function;
+package tfg.function;
 
-import tfg.Entity.Entity;
-import tfg.Entity.WrappedObjectEntity;
+import tfg.entity.Entity;
+import tfg.entity.WrappedObjectEntity;
 import tfg.annotation.CallableMethod;
 import tfg.internal.DynamicallyCallable;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * This is the base Function class which handles functions on our system.
@@ -84,4 +85,5 @@ abstract public class Function extends DynamicallyCallable<Entity, Entity> {
         }
         return false;
     }
+    
 }
