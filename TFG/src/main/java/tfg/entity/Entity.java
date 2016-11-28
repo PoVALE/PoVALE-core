@@ -2,5 +2,7 @@ package tfg.entity;
 
 public interface Entity {
     
-    Class<? extends Entity> getType();
+    default Class<? extends Entity> getType(){
+        return this.getClass();
+    }
 }

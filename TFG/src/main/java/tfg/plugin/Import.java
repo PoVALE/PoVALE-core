@@ -25,7 +25,7 @@ public class Import {
             e.addPlugin(plugin, pi);
             e.addFunctions(pi.getFunctions());
             e.addPredicates(pi.getPredicates());
-            e.addEntities(pi.getEntities());
+            //e.addEntities(pi.getEntities());
           
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);

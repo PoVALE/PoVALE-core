@@ -6,15 +6,15 @@ import tfg.entity.Entity;
 import tfg.function.Function;
 import tfg.predicate.Predicate;
 
-public interface PluginInfo {
+public abstract class PluginInfo {
     
-    public  String getIdPlugin();
+    public abstract String getIdPlugin();
     
-    public List<Function> getFunctions();
+    public abstract List<Function> getFunctions();
     
-    public  List<Predicate> getPredicates();
+    public  abstract List<Predicate> getPredicates();
    
-    public  List<Entity> getEntities();
+    public abstract  List<Class<?>> getEntities();
     
     
 }

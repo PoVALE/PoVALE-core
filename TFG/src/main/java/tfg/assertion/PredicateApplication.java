@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import tfg.assertionError.PredicateApplicationError;
 import tfg.entity.Entity;
-import tfg.entity.ListEntity;
 import tfg.predicate.Predicate;
 import tfg.term.ListTerm;
 
@@ -33,11 +32,10 @@ public class PredicateApplication implements Assertion {
 
         Predicate p = env.getPredicate(predicate);
         
-       if(!p.call(new ListEntity(list))){
+       if(!p.call(list.toArray(new Entity[list.size()]))){
            PredicateApplicationError predicateError = new PredicateApplicationError(p.getName(),new ListTerm(args));
            error = Optional.of(predicateError); 
        }
-
         return (Optional) error;
     }
 }

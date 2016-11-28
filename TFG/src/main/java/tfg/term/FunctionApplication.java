@@ -6,8 +6,7 @@ import tfg.function.Function;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import tfg.entity.ListEntity;
+
 
 public class FunctionApplication implements Term {
 
@@ -31,10 +30,7 @@ public class FunctionApplication implements Term {
             list.add(t.evaluate(env));
         });
         
-        return f.call(new ListEntity(list));// pasar List<Entity>
-        
-        
-        
+        return f.call(list.toArray(new Entity[list.size()]));
         
         
     }
