@@ -4,10 +4,13 @@
     <import></import>
     <rootFile></rootFile>
     <var>
-        <name>Nombre Grupo</name>
-        <desc>String</desc>
+        <label>Nombre Grupo</label>
+        <longdesc>String</longdesc>
+        <name>nombreGrupo</name>
         <type>StringEntity</type>
+        
     </var>
+    
     
     <assertion>
         <assert>
