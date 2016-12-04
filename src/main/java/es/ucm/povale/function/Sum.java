@@ -5,7 +5,7 @@ import java.util.List;
 import es.ucm.povale.annotation.CallableMethod;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.IntegerEntity;
-import tfg.function.Function;
+import es.ucm.povale.function.Function;
 
 public class Sum extends Function {
 

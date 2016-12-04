@@ -19,7 +19,7 @@ package es.ucm.povale.predicate;
 import es.ucm.povale.annotation.CallableMethod;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.internal.DynamicallyCallable;
-import tfg.predicate.TruePredicate;
+import es.ucm.povale.predicate.TruePredicate;
 
 /**
  * This is the base Predicate class which handles predicates on our system.

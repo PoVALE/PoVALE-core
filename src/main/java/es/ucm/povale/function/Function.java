@@ -23,7 +23,7 @@ import es.ucm.povale.annotation.CallableMethod;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.WrappedObjectEntity;
 import es.ucm.povale.internal.DynamicallyCallable;
-import tfg.function.IdentityFunction;
+import es.ucm.povale.function.IdentityFunction;
 
 /**
  * This is the base Function class which handles functions on our system.
