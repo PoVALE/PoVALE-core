@@ -25,6 +25,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import es.ucm.povale.assertion.Assertion;
+import es.ucm.povale.reader.AssertParser;
+import es.ucm.povale.reader.TermParser;
+import es.ucm.povale.reader.Var;
 import es.ucm.povale.term.Term;
 
 /**
