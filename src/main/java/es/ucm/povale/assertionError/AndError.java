@@ -24,13 +24,22 @@
 package es.ucm.povale.assertionError;
 
 /**
- *
- * @author Laura Hernando y Daniel Rossetto
+ * The class contains information regarding why an AND has evaluated to
+ * false.
+ * 
+ * @see And
+ * 
+ * @author PoVALE Team
  */
 public class AndError extends AssertionError {
     
     private String errorInfo;
     
+     /**
+     * Class constructor specifying string which contains the reason of the
+     * assert evaluates to false.
+     *
+     */
     public AndError(String errorString) {
         this.errorInfo = "None of the AND assertions evaluate to true: " + errorString + " .";
     }

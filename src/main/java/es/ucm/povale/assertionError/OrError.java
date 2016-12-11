@@ -24,13 +24,21 @@
 package es.ucm.povale.assertionError;
 
 /**
- *
- * @author laurahernandoserrano
+ * The class contains information regarding why an Or has evaluated to false.
+ * 
+ * @see Or
+ * 
+ * @author PoVALE Team
  */
 public class OrError extends AssertionError{
     
     private String errorInfo;
 
+     /**
+     * Class constructor specifying the string which contains the reason of the
+     * assert evaluates to false.
+     *
+     */
     public OrError(String errorString) {
         
         this.errorInfo = "None of the OR assertions evaluate to true: " + errorString + " .";

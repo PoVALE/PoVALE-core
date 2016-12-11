@@ -34,24 +34,32 @@ import es.ucm.povale.predicate.Predicate;
 import es.ucm.povale.term.ListTerm;
 import es.ucm.povale.term.Term;
 
+/**
+ * This class represents the predicate application operation.
+ *
+ * @author PoVALE Team
+ */
+
 public class PredicateApplication implements Assertion {
 
     private final String predicate;
-    private final List<Term> args;
+    private final List<Term> terms;
 
     /**
      * Class constructor specifying predicate and list of terms.
      *
      * @see Term
      */
-    public PredicateApplication(String predicate, List<Term> args) {
+    public PredicateApplication(String predicate, List<Term> terms) {
         this.predicate = predicate;
-        this.args = args;
+        this.terms = terms;
     }
 
     /**
-     * The method evaluates to true when
-     *
+     * The method evaluates to true when predicate called is true
+     * 
+     * @see Predicate
+     * 
      * @param env environment that contains the runtime entities, values for
      * variables, functions, predicates and plugins.
      * @return an Optional{@link Optional} object.If the assertion evaluates to
@@ -65,13 +73,13 @@ public class PredicateApplication implements Assertion {
         List<Entity> list = new LinkedList();
         Optional<PredicateApplicationError> error = Optional.empty();
 
-        args.stream().forEach((t) -> {
+        terms.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
         
         Predicate p = env.getPredicate(predicate);
         if (!p.call(list.toArray(new Entity[list.size()]))) {
-            PredicateApplicationError predicateError = new PredicateApplicationError(p.getName(), new ListTerm(args));
+            PredicateApplicationError predicateError = new PredicateApplicationError(p.getName(), new ListTerm(terms));
             error = Optional.of(predicateError);
         }
         return (Optional) error;

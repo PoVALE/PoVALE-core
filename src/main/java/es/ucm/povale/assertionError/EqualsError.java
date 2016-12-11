@@ -26,8 +26,12 @@ package es.ucm.povale.assertionError;
 import es.ucm.povale.term.Term;
 
 /**
- *
- * @author Laura Hernando y Daniel Rossetto
+ * The class contains information regarding why an Equals has evaluated to
+ * false.
+ * 
+ * @see Equals
+ * 
+ * @author PoVALE Team
  */
 public class EqualsError extends AssertionError {
     
@@ -35,6 +39,12 @@ public class EqualsError extends AssertionError {
     private Term rhs;
     private String info;
 
+     /**
+     * Class constructor specifying the left and right asserts of the Entail,
+     * and the string which contains the reason of the assert evaluates to
+     * false.
+     *
+     */
     public EqualsError(Term lhs, Term rhs) {
         this.lhs = lhs;
         this.rhs = rhs;

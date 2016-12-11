@@ -27,8 +27,11 @@ import es.ucm.povale.assertion.Assertion;
 import es.ucm.povale.term.Term;
 
 /**
- *
- * @author Laura Hernando y Daniel Rossetto
+ * The class contains information regarding why an Exist has evaluated to false.
+ * 
+ * @see Exist
+ * 
+ * @author PoVALE Team
  */
 public class ExistError extends AssertionError{
     
@@ -37,6 +40,12 @@ public class ExistError extends AssertionError{
     private Assertion aserto;
     private String info;
 
+    /**
+     * Class constructor specifying the the variable, the term or the list of
+     * terms, the assertion of the Exist, and the string which contains the
+     * reason of the assert evaluates to false.
+     *
+     */
     public ExistError(String variable, Term termino, Assertion aserto) {
         this.variable = variable;
         this.termino = termino;

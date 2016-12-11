@@ -26,7 +26,13 @@ package es.ucm.povale.entity;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * Base ListEntity class. 
+ * 
+ * This entity represents the String type. 
+ *
+ * @author PoVALE Team
+ */
 public class ListEntity implements Entity{
     
     private List<Entity> list;

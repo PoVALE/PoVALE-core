@@ -26,8 +26,14 @@ package es.ucm.povale.assertionError;
 import es.ucm.povale.term.Term;
 
 /**
- *
- * @author Laura Hernando y Daniel Rossetto
+ * Base AssertionError class. 
+ * 
+ * The class contains information regarding why an assertion has evaluated to
+ * false. The base class is extended for each type of assert.
+ * 
+ * @see Assertion
+ * 
+ * @author PoVALE Team
  */
 public abstract class AssertionError   {
     

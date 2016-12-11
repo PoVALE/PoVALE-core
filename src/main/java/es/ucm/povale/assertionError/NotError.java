@@ -26,8 +26,11 @@ package es.ucm.povale.assertionError;
 import java.util.logging.Logger;
 
 /**
- *
- * @author laurahernandoserrano
+ * The class contains information regarding why a Not has evaluated to false.
+ * 
+ * @see Not
+ * 
+ * @author PoVALE Team
  */
 public class NotError extends AssertionError{
 

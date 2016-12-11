@@ -23,7 +23,13 @@
  */
 package es.ucm.povale.entity;
 
-
+/**
+ * Base IntegerEntity class. 
+ * 
+ * This entity represents the Integer type.
+ *
+ * @author PoVALE Team
+ */
 public class IntegerEntity implements Entity{
     
     private int n;

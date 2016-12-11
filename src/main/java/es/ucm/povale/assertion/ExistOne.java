@@ -51,7 +51,8 @@ public class ExistOne implements Assertion {
     }
 
     /**
-     * The method evaluates to true when 
+     * The method evaluates to true when there exists only one evaluated term
+     * for which the assert is true.
      * 
      * @param env environment that contains the runtime entities, values for
      * variables, functions, predicates and plugins.

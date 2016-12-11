@@ -54,7 +54,8 @@ public class ForAll implements Assertion {
     }
 
     /**
-     * The method evaluates to true when 
+     * The method evaluates to true when the assert is true for all evaluated
+     * terms.
      * 
      * @param env environment that contains the runtime entities, values for
      * variables, functions, predicates and plugins.

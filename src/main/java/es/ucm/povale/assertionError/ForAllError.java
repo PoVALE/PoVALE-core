@@ -24,13 +24,21 @@
 package es.ucm.povale.assertionError;
 
 /**
- *
- * @author laurahernandoserrano
- */
+ * The class contains information regarding why a ForAll has evaluated to false.
+ * 
+ * @see ForAll
+ * 
+ * @author PoVALE Team
+*/
 public class ForAllError extends AssertionError{
     
     private String errorInfo;
 
+     /**
+     * Class constructor specifying the string which contains the
+     * reason of the assert evaluates to false.
+     *
+     */
     public ForAllError(String errorString) {
         this.errorInfo = errorString;
     }

@@ -23,7 +23,17 @@
  */
 package es.ucm.povale.entity;
 
-
+/**
+ * Base Entity class. 
+ * 
+ * An entity is something which could meet requirents. In the core there are
+ * implement three basic types of entities, integer, string and list of
+ * entities. it could add more types of entities which are implemented in
+ * plugins.
+ *
+ * 
+ * @author PoVALE Team
+ */
 public interface Entity {
     
     default Class<? extends Entity> getType(){

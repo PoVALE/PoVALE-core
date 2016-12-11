@@ -24,11 +24,13 @@
 package es.ucm.povale.assertionError;
 
 import es.ucm.povale.assertion.Assertion;
-import es.ucm.povale.term.Term;
 
 /**
- *
- * @author Laura Hernando y Daniel Rossetto
+ * The class contains information regarding why an Entail has evaluated to false.
+ * 
+ * @see Entail
+ * 
+ * @author PoVALE Team
  */
 public class EntailError extends AssertionError {
     
@@ -36,6 +38,12 @@ public class EntailError extends AssertionError {
     private Assertion rhs;
     private String info;
 
+     /**
+     * Class constructor specifying the left and right asserts of the
+     * Entail operation, and the string which contains the reason of the
+     * assert evaluates to false.
+     *
+     */
     public EntailError(Assertion lhs, Assertion rhs, String errorInfo) {
         this.lhs = lhs;
         this.rhs = rhs;

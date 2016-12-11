@@ -23,6 +23,15 @@
  */
 package es.ucm.povale.assertionError;
 
+/**
+ * The class contains information regarding why an AssertFalse has evaluated to
+ * false.
+ * 
+ * @see AssertionFalse
+ * 
+ * @author PoVALE Team
+ */ 
+
 public class AssertFalseError extends AssertionError{
 
     public AssertFalseError() {

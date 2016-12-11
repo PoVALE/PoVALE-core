@@ -54,7 +54,8 @@ public class Exist implements Assertion {
     }
 
     /**
-     * The method evaluates to true when 
+     * The method evaluates to true when there exists at least one evaluated 
+     * term for which the assert is true.
      * 
      * @param env environment that contains the runtime entities, values for
      * variables, functions, predicates and plugins.

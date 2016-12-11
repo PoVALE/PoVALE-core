@@ -26,12 +26,15 @@ package es.ucm.povale.assertionError;
 import es.ucm.povale.term.ListTerm;
 
 /**
- *
- * @author laurahernandoserrano
+ * The class contains information regarding why a PredicateApplication has evaluated to false.
+ * 
+ * @see PredicateApplication
+ * 
+ * @author PoVALE Team
  */
 public class PredicateApplicationError extends AssertionError{
 
-    public PredicateApplicationError(String name, ListTerm listTerm) {
+    public PredicateApplicationError(String predicate, ListTerm listTerm) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

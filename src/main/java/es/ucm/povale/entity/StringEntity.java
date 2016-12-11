@@ -23,7 +23,13 @@
  */
 package es.ucm.povale.entity;
 
-
+/**
+ * Base StringEntity class. 
+ * 
+ * This entity represents the String type.
+ *
+ * @author PoVALE Team
+ */
 public class StringEntity implements Entity{
     
     private String s;
