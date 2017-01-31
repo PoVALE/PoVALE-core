@@ -41,7 +41,8 @@ public class ForAll implements Assertion {
     private String variable;
     private Term term;
     private Assertion assertion;
-
+    private String message;
+    
     /**
      * Class constructor specifying variable, term and assertion.
      *
@@ -53,6 +54,14 @@ public class ForAll implements Assertion {
         this.assertion = assertion;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
     /**
      * The method evaluates to true when the assert is true for all evaluated
      * terms.

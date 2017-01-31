@@ -36,13 +36,22 @@ import es.ucm.povale.environment.Environment;
 public class Not implements Assertion {
 
     private final Assertion assertion;
-
+    private String message;
+    
     /**
      * Class constructor specifying assertion.
      */
     public Not(Assertion assertion) {
         super();
         this.assertion = assertion;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
     
      /**

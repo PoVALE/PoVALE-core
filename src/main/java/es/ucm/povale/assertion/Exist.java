@@ -41,7 +41,7 @@ public class Exist implements Assertion {
     private final String variable;
     private final Term term;
     private final Assertion assertion;
-
+    private String message;
     /**
      * Class constructor specifying variable, term and assertion.
      *
@@ -51,6 +51,16 @@ public class Exist implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
+        this.message = "Existe un elemento " + variable + " en " + term +
+                " tal que se cumple: " + assertion.getMessage();
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

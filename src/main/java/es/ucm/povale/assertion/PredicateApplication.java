@@ -44,7 +44,8 @@ public class PredicateApplication implements Assertion {
 
     private final String predicate;
     private final List<Term> terms;
-
+    private String message;
+    
     /**
      * Class constructor specifying predicate and list of terms.
      *
@@ -54,7 +55,15 @@ public class PredicateApplication implements Assertion {
         this.predicate = predicate;
         this.terms = terms;
     }
+    
+    public String getMessage() {
+        return message;
+    }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
     /**
      * The method evaluates to true when predicate called is true
      * 

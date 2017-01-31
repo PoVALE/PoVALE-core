@@ -39,4 +39,11 @@ public class Variable implements Term {
     public Entity evaluate(Environment env){
     	return env.getValues().get(name);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    
 }

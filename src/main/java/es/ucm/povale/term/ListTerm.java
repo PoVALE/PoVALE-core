@@ -52,4 +52,16 @@ public class ListTerm implements Term {
 
         return entities;
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for(int i=0; i< terms.size()-1; i++){
+            result += terms.get(i)+ ", ";
+        }
+        result += terms.get(terms.size()-1);
+        return result;
+    }
+    
+    
 }

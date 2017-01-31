@@ -39,7 +39,8 @@ public class Equals implements Assertion {
 
     private final Term lhs;
     private final Term rhs;
-
+    private String message;
+    
     /**
      * Class constructor specifying left and right terms.
      *
@@ -48,6 +49,15 @@ public class Equals implements Assertion {
     public Equals(Term lhs, Term rhs) {
         this.lhs = lhs;
         this.rhs = rhs;
+        this.message = lhs.toString() + " es igual a " + rhs.toString();
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

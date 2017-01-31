@@ -37,7 +37,7 @@ public class Entail implements Assertion {
 
     private final Assertion lhs;
     private final Assertion rhs;
-
+    private String message;
     /**
      * Class constructor specifying left and right asserts.
      *
@@ -48,6 +48,14 @@ public class Entail implements Assertion {
         this.rhs = rhs;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
     /**
      * The method evaluates to true when the left assert is false or the right
      * assert is true. Else, it evaluates to false.

@@ -38,7 +38,8 @@ import es.ucm.povale.environment.Environment;
 public class Or implements Assertion {
 
     private final List<Assertion> assertions;
-
+    private String message;
+    
     /**
      * Class constructor specifying list of asserts.
      *
@@ -47,6 +48,14 @@ public class Or implements Assertion {
     public Or(List<Assertion> assertions) {
         super();
         this.assertions = assertions;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

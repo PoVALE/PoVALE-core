@@ -39,7 +39,8 @@ public class ExistOne implements Assertion {
     private final String variable;
     private final Term term;
     private final Assertion assertion;
-
+    private String message;
+    
     /**
      * Class constructor specifying variable, term and assertion.
      * @see Term
@@ -50,6 +51,14 @@ public class ExistOne implements Assertion {
         this.assertion = assertion;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
     /**
      * The method evaluates to true when there exists only one evaluated term
      * for which the assert is true.

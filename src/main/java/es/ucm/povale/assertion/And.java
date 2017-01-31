@@ -37,6 +37,7 @@ import es.ucm.povale.environment.Environment;
 public class And implements Assertion {
 
     private List<Assertion> assertions;
+    private String message;
 
     /**
      * Class constructor specifying list of asserts.
@@ -45,6 +46,14 @@ public class And implements Assertion {
     public And(List<Assertion> assertions) {
         super();
         this.assertions = assertions;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

@@ -56,4 +56,9 @@ public class AssertTrue implements Assertion {
         return (Optional) error;
     }
 
+    @Override
+    public String getMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

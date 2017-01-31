@@ -30,12 +30,13 @@ import es.ucm.povale.assertion.Assertion;
 import es.ucm.povale.entity.IntegerEntity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.plugin.Import;
-import es.ucm.povale.reader.XMLParser;
+//import es.ucm.povale.reader.XMLParser;
 
 public class MainApp {
 
     public static void main(String[] args) {
 
+        /*
         String XMLFile = "src/main/resources/existPrueba1.xml";
         XMLParser parser = new XMLParser();
         parser.parseXMLFile(XMLFile);

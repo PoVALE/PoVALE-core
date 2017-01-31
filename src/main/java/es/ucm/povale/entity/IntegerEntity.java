@@ -52,4 +52,6 @@ public class IntegerEntity implements Entity{
     public Class<? extends Entity> getType() {
         return IntegerEntity.class;
     }
+    
+    
 }

@@ -34,11 +34,19 @@ import es.ucm.povale.environment.Environment;
  */
 public class AssertFalse implements Assertion {
 
+    private String message;
+    
     /**
      * Class constructor.
      */
     public AssertFalse() {
         super();
+        this.message = "El aserto no se cumple";
+    }
+    
+
+    public String getMessage() {
+        return message;
     }
 
     /**

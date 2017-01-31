@@ -40,4 +40,11 @@ public class LiteralInteger implements Term {
     public Entity evaluate(Environment env){
         return integer;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(integer.getValue());
+    }
+    
+    
 }
