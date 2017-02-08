@@ -26,6 +26,8 @@ package es.ucm.povale.assertion;
 import java.util.Optional;
 
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.treeInformation.AssertionResult;
+import es.ucm.povale.treeInformation.AssertionResultTree;
 /**
  * Base Assertion class. 
  * 
@@ -50,6 +52,6 @@ public interface Assertion {
      * 
      * @see AssertionError
      */
-    public Optional<AssertionError> check(Environment env);
+    public boolean check(Environment env);
     public String getMessage();
 }

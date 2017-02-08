@@ -24,8 +24,6 @@
 package es.ucm.povale.assertion;
 
 import java.util.Optional;
-
-import es.ucm.povale.assertionError.AssertFalseError;
 import es.ucm.povale.environment.Environment;
 
 /**
@@ -35,18 +33,30 @@ import es.ucm.povale.environment.Environment;
 public class AssertFalse implements Assertion {
 
     private String message;
-    
+    private String defaultMessage;
     /**
      * Class constructor.
      */
-    public AssertFalse() {
+    public AssertFalse(String message) {
         super();
-        this.message = "El aserto no se cumple";
+        this.defaultMessage = "El aserto no se cumple";
+        this.message = message;
     }
     
-
     public String getMessage() {
         return message;
+    }
+    
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -60,10 +70,8 @@ public class AssertFalse implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
-        AssertFalseError afe = new AssertFalseError();
-        Optional<AssertFalseError> error = Optional.of(afe);
-        return (Optional) error;
+    public boolean check(Environment env) {
+        return false;
     }
 
 }

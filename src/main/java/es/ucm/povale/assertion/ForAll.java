@@ -25,7 +25,6 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.ForAllError;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
 import es.ucm.povale.environment.Environment;
@@ -42,25 +41,37 @@ public class ForAll implements Assertion {
     private Term term;
     private Assertion assertion;
     private String message;
+    private String defaultMessage;
     
     /**
      * Class constructor specifying variable, term and assertion.
      *
      * @see Term
      */
-    public ForAll(String variable, Term term, Assertion assertion) {
+    public ForAll(String variable, Term term, Assertion assertion, String message) {
         this.variable = variable;
         this.term = term;
-        this.assertion = assertion;
+        this.assertion = assertion;        
+        this.defaultMessage = "";        
+        this.message = message;
     }
-
+    
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
     
     /**
      * The method evaluates to true when the assert is true for all evaluated
@@ -74,25 +85,22 @@ public class ForAll implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = true;
-        Optional<ForAllError> error = Optional.empty();
         String errorString = "";
 
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
-            if (assertion.check(env).isPresent()) {
+            if (!assertion.check(env)) {
                 result = false;
-                errorString = errorString.concat(assertion.check(env).get().getLocalizedMessage());
             }
         }
         if (!result) {
-            ForAllError forAllError = new ForAllError(errorString);
-            error = Optional.of(forAllError);
+           //error
         }
 
-        return (Optional) error;
+        return result;
     }
 }

@@ -26,8 +26,6 @@ package es.ucm.povale.assertion;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
-import es.ucm.povale.assertionError.ExistOneError;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
 import es.ucm.povale.environment.Environment;
@@ -40,23 +38,34 @@ public class ExistOne implements Assertion {
     private final Term term;
     private final Assertion assertion;
     private String message;
+    private String defaultMessage;
     
     /**
      * Class constructor specifying variable, term and assertion.
      * @see Term
      */
-    public ExistOne(String variable, Term term, Assertion assertion) {
+    public ExistOne(String variable, Term term, Assertion assertion, String message) {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
+                this.defaultMessage = "";
+        this.message = message;
     }
-
+    
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
     
     /**
@@ -71,36 +80,31 @@ public class ExistOne implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-        Optional<ExistOneError> error = Optional.empty();
         List<Entity> cumple = new LinkedList();
         String errorString = "";
 
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
-            if (!assertion.check(env).isPresent()) {
+            if (assertion.check(env)) {
                 cumple.add(e);
                 if (result) {
-                    
                     result = false;
-                    ExistOneError existOneError = new ExistOneError(variable, cumple, assertion);
-                    error = Optional.of(existOneError); 
                     break;
                 } else {
                     result = true;
                 }
             }
             else{
-                errorString = errorString.concat(assertion.check(env).get().getLocalizedMessage());
+               //error
             }
         }
         if(!result){
-             ExistOneError existOneError = new ExistOneError(variable, term, assertion,errorString);
-             error = Optional.of(existOneError); 
+             //error
         }
-        return (Optional) error;
+        return result;
     }
 }

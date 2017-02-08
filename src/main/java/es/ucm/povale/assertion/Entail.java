@@ -24,8 +24,6 @@
 package es.ucm.povale.assertion;
 
 import java.util.Optional;
-
-import es.ucm.povale.assertionError.EntailError;
 import es.ucm.povale.environment.Environment;
 
 /**
@@ -38,23 +36,35 @@ public class Entail implements Assertion {
     private final Assertion lhs;
     private final Assertion rhs;
     private String message;
+    private String defaultMessage;
     /**
      * Class constructor specifying left and right asserts.
      *
      * @see Assertion
      */
-    public Entail(Assertion lhs, Assertion rhs) {
+    public Entail(Assertion lhs, Assertion rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
+        this.defaultMessage = "elem1 implica a elem2";
+        this.message = message;
     }
-
+    
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
     
     /**
      * The method evaluates to true when the left assert is false or the right
@@ -68,21 +78,19 @@ public class Entail implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         boolean result = false;
-        Optional<EntailError> error = Optional.empty();
 
-        if (!rhs.check(env).isPresent()) {
+        if (rhs.check(env)) {
             result = true;
-        } else if (lhs.check(env).isPresent()) {
+        } else if (!lhs.check(env)) {
             result = true;
         }
 
         if (!result) {
-            EntailError entailError = new EntailError(rhs, lhs, lhs.check(env).get().getLocalizedMessage());
-            error = Optional.of(entailError);
+            //EntailError entailError = new EntailError(rhs, lhs, lhs.check(env).get().getLocalizedMessage());
         }
-        return (Optional) error;
+        return result;
     }
 }

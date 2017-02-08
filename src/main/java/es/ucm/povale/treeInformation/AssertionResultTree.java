@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 PoVALE Team.
+ * Copyright 2017.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,39 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package es.ucm.povale.assertionError;
+package es.ucm.povale.treeInformation;
 
-import es.ucm.povale.term.Term;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 /**
- * The class contains information regarding why an Equals has evaluated to
- * false.
- * 
- * @see Equals
- * 
- * @author PoVALE Team
+ *
+ * @author PoVALE-TEAM
  */
-public class EqualsError extends AssertionError {
-    
-    private Term lhs;
-    private Term rhs;
-    private String info;
 
-     /**
-     * Class constructor specifying the left and right asserts of the Entail,
-     * and the string which contains the reason of the assert evaluates to
-     * false.
-     *
-     */
-    public EqualsError(Term lhs, Term rhs) {
-        this.lhs = lhs;
-        this.rhs = rhs;
-        this.info = lhs +" is not equal to " + rhs +" .";
+public class AssertionResultTree<T> {
+    /*private Node<T> root;
+
+    public AssertionResultTree(T rootData) {
+        root = new Node<T>();
+        root.data = rootData;
+        root.children = new ArrayList<Node<T>>();
     }
 
-    @Override
-    public String getLocalizedMessage() {
-        return info;
-    }
-    
+    public static class Node<T> {
+        private T data;
+        private Node<T> parent;
+        private List<Node<T>> children;
+    }*/
 }
+

@@ -25,8 +25,6 @@ package es.ucm.povale.assertion;
 
 import java.util.List;
 import java.util.Optional;
-
-import es.ucm.povale.assertionError.AndError;
 import es.ucm.povale.environment.Environment;
 
 /**
@@ -38,24 +36,34 @@ public class And implements Assertion {
 
     private List<Assertion> assertions;
     private String message;
+    private String defaultMessage;
 
     /**
      * Class constructor specifying list of asserts.
      *
      */
-    public And(List<Assertion> assertions) {
+    public And(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
+        this.defaultMessage = "";
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
     }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
 
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
     /**
      * The method evaluates to true when all asserts evaluate to true. Else it
      * evaluates to false.
@@ -68,26 +76,20 @@ public class And implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
         boolean andResult = true;
-        String errorString = "";
-
-        Optional<AndError> error = Optional.empty();
 
         for (int i = 0; i < assertions.size() && andResult; i++) {
 
-            AndError x = new AndError(errorString);
-
-            if (assertions.get(i).check(env).isPresent()) {
-                errorString = errorString.concat(assertions.get(i).check(env).get().getLocalizedMessage());
+            if (!assertions.get(i).check(env)) {
+                //errorString = errorString.concat(assertions.get(i).check(env).get().getLocalizedMessage());
                 andResult = false;
             }
         }
         if (!andResult) {
-            AndError andError = new AndError(errorString);
-            error = Optional.of(andError);
+            //error
         }
 
-        return (Optional) error;
+        return andResult;
     }
 }

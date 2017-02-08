@@ -26,6 +26,8 @@ package es.ucm.povale.assertion;
 import java.util.Optional;
 
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.treeInformation.AssertionResult;
+import es.ucm.povale.treeInformation.AssertionResultTree;
 
 /**
  * This class represents the logical true
@@ -33,13 +35,32 @@ import es.ucm.povale.environment.Environment;
  */
 public class AssertTrue implements Assertion {
 
+    private String message;
+    private String defaultMessage;
     /**
      * Class constructor.
      */
-    public AssertTrue() {
+    public AssertTrue(String message) {
         super();
+        this.defaultMessage = "";
+        this.message = message;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+    
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
     }
 
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
     /**
      * The method always evaluates to true.
      * 
@@ -51,14 +72,12 @@ public class AssertTrue implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
-        Optional<AssertionError> error = Optional.empty();
-        return (Optional) error;
-    }
-
-    @Override
-    public String getMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean check(Environment env) {
+       /* String mensaje;
+        if(this.message == null)
+            this.message=this.defaultMessage;
+        AssertionResult assertTrue = new AssertionResult(this.message, true);*/
+      return true;
     }
 
 }

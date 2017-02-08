@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 PoVALE Team.
+ * Copyright 2017.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,25 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package es.ucm.povale.assertionError;
-
-import java.util.logging.Logger;
+package es.ucm.povale.treeInformation;
 
 /**
- * The class contains information regarding why a Not has evaluated to false.
- * 
- * @see Not
- * 
- * @author PoVALE Team
+ *
+ * @author PoVALE-team
  */
-public class NotError extends AssertionError{
+public class AssertionResult {
 
-    public NotError() {
+    private String message;
+    private boolean result;
+    
+    public AssertionResult(String message, boolean result) {
+        this.message = message;
+        this.result = result;
     }
 
-    @Override
-    public String getLocalizedMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getMessage() {
+        return message;
     }
     
 }

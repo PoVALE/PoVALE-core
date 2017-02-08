@@ -25,7 +25,6 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.NotError;
 import es.ucm.povale.environment.Environment;
 
 /**
@@ -37,21 +36,32 @@ public class Not implements Assertion {
 
     private final Assertion assertion;
     private String message;
+    private String defaultMessage;
     
     /**
      * Class constructor specifying assertion.
      */
-    public Not(Assertion assertion) {
+    public Not(Assertion assertion, String message) {
         super();
-        this.assertion = assertion;
+        this.assertion = assertion;       
+        this.defaultMessage = "";
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
     
      /**
@@ -67,16 +77,12 @@ public class Not implements Assertion {
      */
 
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
-        Optional<NotError> error = Optional.empty();
-
-        if (assertion.check(env).isPresent()) {
-            return (Optional) error;
+        if (!assertion.check(env)) {
+            return true;
         } else {
-            NotError notError = new NotError();
-            error = Optional.of(notError);
-            return (Optional) error;
+            return false;
         }
     }
 

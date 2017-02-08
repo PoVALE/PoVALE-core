@@ -25,7 +25,6 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.ExistError;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
 import es.ucm.povale.environment.Environment;
@@ -42,25 +41,35 @@ public class Exist implements Assertion {
     private final Term term;
     private final Assertion assertion;
     private String message;
+    private String defaultMessage;
     /**
      * Class constructor specifying variable, term and assertion.
      *
      * @see Term
      */
-    public Exist(String variable, Term term, Assertion assertion) {
+    public Exist(String variable, Term term, Assertion assertion, String message) {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-        this.message = "Existe un elemento " + variable + " en " + term +
+        this.defaultMessage = "Existe un elemento " + variable + " en " + term +
                 " tal que se cumple: " + assertion.getMessage();
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -75,26 +84,24 @@ public class Exist implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-        Optional<ExistError> error = Optional.empty();
 
         for (Entity e : list.getList()) {
 
             env.getValues().replace(variable, e);
 
-            if (!assertion.check(env).isPresent()) {
+            if (assertion.check(env)) {
                 result = true;
                 break;
             }
         }
         if (!result) {
-            ExistError existError = new ExistError(variable, term, assertion);
-            error = Optional.of(existError);
+            //error
         }
 
-        return (Optional) error;
+        return result;
     }
 }

@@ -26,7 +26,6 @@ package es.ucm.povale.assertion;
 import java.util.List;
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.OrError;
 import es.ucm.povale.environment.Environment;
 
 /**
@@ -39,23 +38,34 @@ public class Or implements Assertion {
 
     private final List<Assertion> assertions;
     private String message;
+    private String defaultMessage;
     
     /**
      * Class constructor specifying list of asserts.
      *
      * @see Term
      */
-    public Or(List<Assertion> assertions) {
+    public Or(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
+        this.defaultMessage = "";
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -70,24 +80,22 @@ public class Or implements Assertion {
      * to false. 
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
         
         boolean orResult = false;
-        Optional<OrError> error = Optional.empty();
         String errorString = "";
 
         for (int i = 0; i < assertions.size() && !orResult; i++) {
-            if (assertions.get(i).check(env).isPresent()) {
+            if (!assertions.get(i).check(env)) {
                 orResult = true;
                 break;
             } else {
-                errorString = errorString.concat(assertions.get(i).check(env).get().getLocalizedMessage());
+               //aserto falso
             }
         }
         if (!orResult) {
-            OrError orError = new OrError(errorString);
-            error = Optional.of(orError);
+            //error
         }
-        return (Optional) error;
+        return orResult;
     }
 }

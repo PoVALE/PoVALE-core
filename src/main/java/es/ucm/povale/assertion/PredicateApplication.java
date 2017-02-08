@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.PredicateApplicationError;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.predicate.Predicate;
@@ -45,23 +44,32 @@ public class PredicateApplication implements Assertion {
     private final String predicate;
     private final List<Term> terms;
     private String message;
-    
+    private String defaultMessage;
     /**
      * Class constructor specifying predicate and list of terms.
      *
      * @see Term
      */
-    public PredicateApplication(String predicate, List<Term> terms) {
+    public PredicateApplication(String predicate, List<Term> terms, String message) {
         this.predicate = predicate;
-        this.terms = terms;
+        this.terms = terms;        this.defaultMessage = "";
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
     
     /**
@@ -77,20 +85,19 @@ public class PredicateApplication implements Assertion {
      * false.
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         List<Entity> list = new LinkedList();
-        Optional<PredicateApplicationError> error = Optional.empty();
-
+        boolean predicateResult = true;
         terms.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
         
         Predicate p = env.getPredicate(predicate);
         if (!p.call(list.toArray(new Entity[list.size()]))) {
-            PredicateApplicationError predicateError = new PredicateApplicationError(p.getName(), new ListTerm(terms));
-            error = Optional.of(predicateError);
+            //error
+            predicateResult = false;
         }
-        return (Optional) error;
+        return predicateResult;
     }
 }

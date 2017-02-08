@@ -25,7 +25,6 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 
-import es.ucm.povale.assertionError.EqualsError;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.term.Term;
@@ -40,24 +39,35 @@ public class Equals implements Assertion {
     private final Term lhs;
     private final Term rhs;
     private String message;
+    private String defaultMessage;
+    
     
     /**
      * Class constructor specifying left and right terms.
      *
      * @see Term
      */
-    public Equals(Term lhs, Term rhs) {
+    public Equals(Term lhs, Term rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
-        this.message = lhs.toString() + " es igual a " + rhs.toString();
+        this.defaultMessage = "elem1 no es igual a elem2";
+        this.message = message;
     }
     
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -74,10 +84,9 @@ public class Equals implements Assertion {
      * @see Term
      */
     @Override
-    public Optional<AssertionError> check(Environment env) {
+    public boolean check(Environment env) {
 
         boolean result;
-        Optional<EqualsError> error = Optional.empty();
 
         Entity l = lhs.evaluate(env);
         Entity r = rhs.evaluate(env);
@@ -85,10 +94,9 @@ public class Equals implements Assertion {
         result = l.equals(r);
 
         if (!result) {
-            EqualsError equalsError = new EqualsError(lhs, rhs);
-            error = Optional.of(equalsError);
+            //error
         }
 
-        return (Optional) error;
+        return result;
     }
 }
