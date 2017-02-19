@@ -29,6 +29,7 @@ import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.term.Term;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the universal quantification operation.
@@ -42,6 +43,7 @@ public class ForAll implements Assertion {
     private Assertion assertion;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     
     /**
      * Class constructor specifying variable, term and assertion.
@@ -54,8 +56,10 @@ public class ForAll implements Assertion {
         this.assertion = assertion;        
         this.defaultMessage = "";        
         this.message = message;
+        this.node = new AssertInformation (this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -85,22 +89,28 @@ public class ForAll implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = true;
-        String errorString = "";
+        
 
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
-            if (!assertion.check(env)) {
+            AssertInformation child = assertion.check(env);
+            if (!child.getResult()) {
                 result = false;
             }
+            this.node.addChild(child);
         }
-        if (!result) {
-           //error
+        
+        if (message == null){
+            this.node.setMessage(this.defaultMessage);
         }
+        
+        this.node.setResult(result);
 
-        return result;
+        return this.node;
     }
+
 }

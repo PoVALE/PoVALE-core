@@ -25,6 +25,7 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the logical false
@@ -34,6 +35,7 @@ public class AssertFalse implements Assertion {
 
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     /**
      * Class constructor.
      */
@@ -41,8 +43,10 @@ public class AssertFalse implements Assertion {
         super();
         this.defaultMessage = "El aserto no se cumple";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -70,8 +74,13 @@ public class AssertFalse implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
-        return false;
+    public AssertInformation check(Environment env) {
+        if(this.message == null){
+            node.setMessage(this.defaultMessage);
+        }
+        node.setResult(false);
+        
+        return node;
     }
 
 }

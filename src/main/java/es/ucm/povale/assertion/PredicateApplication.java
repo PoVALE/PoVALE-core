@@ -32,6 +32,7 @@ import es.ucm.povale.environment.Environment;
 import es.ucm.povale.predicate.Predicate;
 import es.ucm.povale.term.ListTerm;
 import es.ucm.povale.term.Term;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the predicate application operation.
@@ -45,6 +46,7 @@ public class PredicateApplication implements Assertion {
     private final List<Term> terms;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     /**
      * Class constructor specifying predicate and list of terms.
      *
@@ -52,10 +54,13 @@ public class PredicateApplication implements Assertion {
      */
     public PredicateApplication(String predicate, List<Term> terms, String message) {
         this.predicate = predicate;
-        this.terms = terms;        this.defaultMessage = "";
+        this.terms = terms;        
+        this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -85,10 +90,10 @@ public class PredicateApplication implements Assertion {
      * false.
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
 
         List<Entity> list = new LinkedList();
-        boolean predicateResult = true;
+        boolean result = true;
         terms.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
@@ -96,8 +101,16 @@ public class PredicateApplication implements Assertion {
         Predicate p = env.getPredicate(predicate);
         if (!p.call(list.toArray(new Entity[list.size()]))) {
             //error
-            predicateResult = false;
+            result = false;
         }
-        return predicateResult;
+        
+        if(message == null){
+            this.node.setMessage(defaultMessage);
+        }
+        
+        this.node.setResult(result);
+            
+        return this.node;
     }
+
 }

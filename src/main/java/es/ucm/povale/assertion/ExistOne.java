@@ -30,6 +30,7 @@ import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.term.Term;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 
 public class ExistOne implements Assertion {
@@ -39,6 +40,7 @@ public class ExistOne implements Assertion {
     private final Assertion assertion;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     
     /**
      * Class constructor specifying variable, term and assertion.
@@ -48,10 +50,12 @@ public class ExistOne implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-                this.defaultMessage = "";
+        this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation (this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -80,17 +84,16 @@ public class ExistOne implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-        List<Entity> cumple = new LinkedList();
-        String errorString = "";
 
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
-            if (assertion.check(env)) {
-                cumple.add(e);
+            AssertInformation child = assertion.check(env);
+            if (child.getResult()) {
+
                 if (result) {
                     result = false;
                     break;
@@ -98,13 +101,14 @@ public class ExistOne implements Assertion {
                     result = true;
                 }
             }
-            else{
-               //error
-            }
+            node.addChild(child);
         }
-        if(!result){
-             //error
-        }
-        return result;
+
+        if(message == null)
+            this.node.setMessage(defaultMessage);
+        this.node.setResult(result);
+        
+        return this.node;
     }
+
 }

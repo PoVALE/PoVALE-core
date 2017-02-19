@@ -26,6 +26,7 @@ package es.ucm.povale.assertion;
 import java.util.Optional;
 
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the negation operation.
@@ -37,7 +38,7 @@ public class Not implements Assertion {
     private final Assertion assertion;
     private String message;
     private String defaultMessage;
-    
+    private AssertInformation node;
     /**
      * Class constructor specifying assertion.
      */
@@ -46,8 +47,10 @@ public class Not implements Assertion {
         this.assertion = assertion;       
         this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -77,13 +80,22 @@ public class Not implements Assertion {
      */
 
     @Override
-    public boolean check(Environment env) {
-
-        if (!assertion.check(env)) {
-            return true;
+    public AssertInformation check(Environment env) {
+        boolean result;
+        AssertInformation child = assertion.check(env);
+        if (!child.getResult()) {
+            result = true;
         } else {
-            return false;
+            result = false;
         }
+        this.node.addChild(child);
+        
+        if(message == null)
+            this.node.setMessage(defaultMessage);
+        
+        this.node.setResult(result);
+        
+        return this.node;
     }
 
 }

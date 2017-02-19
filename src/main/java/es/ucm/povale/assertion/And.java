@@ -26,6 +26,7 @@ package es.ucm.povale.assertion;
 import java.util.List;
 import java.util.Optional;
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the logical conjuction operation.
@@ -37,18 +38,22 @@ public class And implements Assertion {
     private List<Assertion> assertions;
     private String message;
     private String defaultMessage;
-
+    private AssertInformation node;
     /**
      * Class constructor specifying list of asserts.
      *
      */
+    
     public And(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
         this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
+        //crear node con default msg para tree de requisitos iniciales
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -76,20 +81,24 @@ public class And implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
-        boolean andResult = true;
-
-        for (int i = 0; i < assertions.size() && andResult; i++) {
-
-            if (!assertions.get(i).check(env)) {
-                //errorString = errorString.concat(assertions.get(i).check(env).get().getLocalizedMessage());
-                andResult = false;
+    public AssertInformation check(Environment env) {
+        
+        boolean result = true;
+        
+        for (int i = 0; i < assertions.size(); i++) {
+            AssertInformation child = assertions.get(i).check(env);
+            if (!child.getResult()) {
+                result = false;
             }
+            node.addChild(child);
         }
-        if (!andResult) {
-            //error
+        
+        if(this.message == null){
+            node.setMessage(defaultMessage);
         }
-
-        return andResult;
+        this.node.setResult(result);
+        
+        return this.node;
     }
+
 }

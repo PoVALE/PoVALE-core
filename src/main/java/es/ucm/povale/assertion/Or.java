@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the logical disjunction operation.
@@ -39,6 +40,7 @@ public class Or implements Assertion {
     private final List<Assertion> assertions;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     
     /**
      * Class constructor specifying list of asserts.
@@ -50,8 +52,10 @@ public class Or implements Assertion {
         this.assertions = assertions;
         this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation (this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -80,22 +84,25 @@ public class Or implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
         
-        boolean orResult = false;
-        String errorString = "";
+        boolean result = false;
 
-        for (int i = 0; i < assertions.size() && !orResult; i++) {
-            if (!assertions.get(i).check(env)) {
-                orResult = true;
-                break;
-            } else {
-               //aserto falso
+        for (int i = 0; i < assertions.size(); i++) {
+            AssertInformation child = assertions.get(i).check(env);
+            if (!child.getResult()){
+                result = true;
             }
+            
+            this.node.addChild(child);
         }
-        if (!orResult) {
-            //error
-        }
-        return orResult;
+
+        if(this.message == null)
+            this.node.setMessage(defaultMessage);
+        
+        this.node.setResult(result);
+        
+        return this.node;
     }
+
 }

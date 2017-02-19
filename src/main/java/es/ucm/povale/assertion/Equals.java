@@ -28,6 +28,7 @@ import java.util.Optional;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.term.Term;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the equals operation.
@@ -40,6 +41,7 @@ public class Equals implements Assertion {
     private final Term rhs;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     
     
     /**
@@ -50,10 +52,13 @@ public class Equals implements Assertion {
     public Equals(Term lhs, Term rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
-        this.defaultMessage = "elem1 no es igual a elem2";
+        this.defaultMessage = " no es igual a ";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
+ 
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -84,7 +89,7 @@ public class Equals implements Assertion {
      * @see Term
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
 
         boolean result;
 
@@ -92,11 +97,16 @@ public class Equals implements Assertion {
         Entity r = rhs.evaluate(env);
 
         result = l.equals(r);
-
-        if (!result) {
-            //error
+        if(message == null){
+            this.node.setMessage(l + defaultMessage + r);
         }
+        else{ 
+            this.node.setMessage(l + message + r);
+        }
+        
+        this.node.setResult(result);//actualizamos el valor del aserto evaluado
 
-        return result;
+        return this.node;
     }
+    
 }

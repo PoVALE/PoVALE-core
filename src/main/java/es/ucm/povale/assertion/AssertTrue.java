@@ -26,8 +26,7 @@ package es.ucm.povale.assertion;
 import java.util.Optional;
 
 import es.ucm.povale.environment.Environment;
-import es.ucm.povale.treeInformation.AssertionResult;
-import es.ucm.povale.treeInformation.AssertionResultTree;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the logical true
@@ -37,6 +36,8 @@ public class AssertTrue implements Assertion {
 
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
+    
     /**
      * Class constructor.
      */
@@ -44,8 +45,10 @@ public class AssertTrue implements Assertion {
         super();
         this.defaultMessage = "";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -72,12 +75,14 @@ public class AssertTrue implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
-       /* String mensaje;
-        if(this.message == null)
-            this.message=this.defaultMessage;
-        AssertionResult assertTrue = new AssertionResult(this.message, true);*/
-      return true;
+    public AssertInformation check(Environment env) {
+        if(this.message == null){
+            node.setMessage(this.defaultMessage);
+        }
+        node.setResult(true);
+        
+        return node;
     }
+
 
 }

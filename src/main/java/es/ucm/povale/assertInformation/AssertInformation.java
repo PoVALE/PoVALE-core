@@ -21,31 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package es.ucm.povale.treeInformation;
+package es.ucm.povale.assertInformation;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
-
 
 /**
  *
- * @author PoVALE-TEAM
+ * @author PoVALE-team
  */
+public class AssertInformation {
 
-public class AssertionResultTree<T> {
-    /*private Node<T> root;
+    private String message;
+    private Boolean result;
+    private List<AssertInformation> children;
 
-    public AssertionResultTree(T rootData) {
-        root = new Node<T>();
-        root.data = rootData;
-        root.children = new ArrayList<Node<T>>();
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public static class Node<T> {
-        private T data;
-        private Node<T> parent;
-        private List<Node<T>> children;
-    }*/
-}
+    
+    
+    public AssertInformation(String message, Boolean result) {
+        this.message = message;
+        this.result = result;
+        this.children = new LinkedList<>();
+    }
 
+    public Boolean getResult() {
+        return result;
+    }
+
+    public void setResult(Boolean result) {
+        this.result = result;
+    }
+
+    public List<AssertInformation> getChildren() {
+        return children;
+    }
+    public void addChild(AssertInformation child) {
+        children.add(child);
+    }
+    public String getMessage() {
+        return message;
+    }
+    
+    public boolean isLeaf() {
+        return (this.children.isEmpty());
+    }
+    
+}

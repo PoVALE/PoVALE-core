@@ -25,6 +25,7 @@ package es.ucm.povale.assertion;
 
 import java.util.Optional;
 import es.ucm.povale.environment.Environment;
+import es.ucm.povale.assertInformation.AssertInformation;
 
 /**
  * This class represents the logical conditional operation.
@@ -37,6 +38,7 @@ public class Entail implements Assertion {
     private final Assertion rhs;
     private String message;
     private String defaultMessage;
+    private AssertInformation node;
     /**
      * Class constructor specifying left and right asserts.
      *
@@ -47,8 +49,10 @@ public class Entail implements Assertion {
         this.rhs = rhs;
         this.defaultMessage = "elem1 implica a elem2";
         this.message = message;
+        this.node = new AssertInformation(this.message, null);
     }
     
+    @Override
     public String getMessage() {
         return message;
     }
@@ -78,19 +82,20 @@ public class Entail implements Assertion {
      * to false. 
      */
     @Override
-    public boolean check(Environment env) {
+    public AssertInformation check(Environment env) {
 
         boolean result = false;
-
-        if (rhs.check(env)) {
-            result = true;
-        } else if (!lhs.check(env)) {
+        AssertInformation leftChild = lhs.check(env);
+        AssertInformation rightChild = rhs.check(env);
+        if (rightChild.getResult() || !leftChild.getResult()) {
             result = true;
         }
+        node.addChild(rightChild);
+        node.addChild(leftChild);
+        
+        node.setResult(result);
 
-        if (!result) {
-            //EntailError entailError = new EntailError(rhs, lhs, lhs.check(env).get().getLocalizedMessage());
-        }
-        return result;
+        return node;
     }
+
 }
