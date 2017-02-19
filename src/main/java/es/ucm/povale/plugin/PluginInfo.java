@@ -23,13 +23,16 @@
  */
 package es.ucm.povale.plugin;
 
+import es.ucm.povale.entity.Entity;
 import java.util.List;
 
-import es.ucm.povale.entity.Entity;
 import es.ucm.povale.function.Function;
 import es.ucm.povale.predicate.Predicate;
+import es.ucm.povale.views.parameter.ParameterEditor;
+import java.util.Map;
 
 public abstract class PluginInfo {
+    
     
     public abstract String getIdPlugin();
     
@@ -39,5 +42,8 @@ public abstract class PluginInfo {
    
     public abstract  List<Class<?>> getEntities();
     
+    public abstract List<String> getEditorTypes();
+    
+    public abstract ParameterEditor<? extends Entity> getEditor(String name, Map<String,String> parameters);
     
 }

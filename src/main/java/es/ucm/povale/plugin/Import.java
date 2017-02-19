@@ -28,27 +28,27 @@ import java.util.logging.Logger;
 
 import es.ucm.povale.environment.Environment;
 
-public class Import {
+public final class Import {
  
     private final String plugin;
+    private final Environment environment;
 
-    public Import(String plugin) {
+    public Import(String plugin, Environment env) {
         this.plugin = plugin;
+        this.environment = env;
         addPlugin();
     }
     
     public void addPlugin(){
         
-        Environment e = new Environment();
-           
         try {
             Class<?> cl = Class.forName(plugin);
             PluginInfo pi = (PluginInfo) cl.newInstance();
                 
-            e.addPlugin(plugin, pi);
-            e.addFunctions(pi.getFunctions());
-            e.addPredicates(pi.getPredicates());
-            //e.addEntities(pi.getEntities());
+            environment.addPlugin(plugin, pi);
+            environment.addFunctions(pi.getFunctions());
+            environment.addPredicates(pi.getPredicates());
+            //environment.addEntities(pi.getEntities());
           
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Import.class.getName()).log(Level.SEVERE, null, ex);

@@ -23,6 +23,7 @@
  */
 package es.ucm.povale.environment;
 
+import es.ucm.povale.Var;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ import es.ucm.povale.function.Function;
 import es.ucm.povale.plugin.PluginInfo;
 import es.ucm.povale.predicate.Predicate;
 
+
 public class Environment {
 
     private Set<Entity> entities;
@@ -41,6 +43,8 @@ public class Environment {
     private Map<String, Function> functions;
     private Map<String, Predicate> predicates;
     private Map<String, PluginInfo> plugins;
+    private Map<String, PluginInfo> paramEditors;
+    private Map<Var, Entity> variables;
 
     public Environment() {
 
@@ -49,62 +53,90 @@ public class Environment {
         functions = new HashMap<>();
         predicates = new HashMap<>();
         plugins = new HashMap<>();
+        paramEditors = new HashMap<>();
+        variables = new HashMap<>();
 
     }
+    
+    public void setEntities(Set<Entity> entities) {
+        this.entities = entities;
+    }
+    
+    public void addEntities(List<Entity> entities) {
 
+        entities.stream().forEach((e) -> {
+            this.entities.add(e);
+        });
+    }
+      
     public Map<String, Entity> getValues() {
         return values;
+    }
+      
+    public void setValues(Map<String, Entity> values) {
+        this.values = values;
+    }
+    
+    public Function getFunction(String function) {
+        return functions.get(function);
+    }
+    
+     public void addFunctions(List<Function> functions) {
+
+        functions.stream().forEach((f) -> {
+            this.functions.put(f.getName(), f);
+        });
+
+    }
+    
+    public void setFunctions(Map<String, Function> functions) {
+        this.functions = functions;
     }
 
     public Predicate getPredicate(String predicate) {
         return predicates.get(predicate);
     }
 
-    public Function getFunction(String function) {
-        return functions.get(function);
+    public void setPredicates(Map<String, Predicate> predicates) {
+        this.predicates = predicates;
+    }
+    
+    public void addPredicates(List<Predicate> predicates) {
+
+        predicates.stream().forEach((p) -> {
+            this.predicates.put(p.getName(), p);
+        });
     }
 
     public void addPlugin(String initializerClass, PluginInfo plugin) {
         plugins.put(initializerClass, plugin);
     }
 
-    public void setValues(Map<String, Entity> values) {
-        this.values = values;
+    public void addParamEditors() {
+
+        plugins.values().stream().forEach((p) -> {
+            p.getEditorTypes().stream().forEach((s) -> {
+                this.paramEditors.put(s, p);
+            });
+        });
+    }
+    
+    public PluginInfo getParamEditor(String param) {
+        return paramEditors.get(param);
     }
 
-    public void setEntities(Set<Entity> entities) {
-        this.entities = entities;
+    public Set<Var> getVariables() {
+        return variables.keySet();
     }
-
-    public void setFunctions(Map<String, Function> functions) {
-        this.functions = functions;
+    
+    public void addVariables(List<Var> variables){
+        
+        variables.stream().forEach((v)-> {
+           this.variables.put(v, null);
+        });
     }
-
-    public void setPredicates(Map<String, Predicate> predicates) {
-        this.predicates = predicates;
+    
+    public void setVariableValue(Var variable, Entity value){
+        this.variables.replace(variable, value);
     }
-
-    public void addFunctions(List<Function> functions) {
-
-        for (Function f : functions) {
-            this.functions.put(f.getName(), f);
-        }
-
-    }
-
-    public void addPredicates(List<Predicate> predicates) {
-
-        for (Predicate p : predicates) {
-            this.predicates.put(p.getName(), p);
-        }
-
-    }
-
-    public void addEntities(List<Entity> entities) {
-
-        for (Entity e : entities) {
-            this.entities.add(e);
-        }
-    }
-
 }
