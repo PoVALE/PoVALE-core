@@ -54,12 +54,12 @@ public class ForAll implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;        
-        this.defaultMessage = "";        
+        this.defaultMessage = "Para todo elemento " + variable + " en " + term.toString() +
+                " cumple: ";        
         this.message = message;
         this.node = new AssertInformation (this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

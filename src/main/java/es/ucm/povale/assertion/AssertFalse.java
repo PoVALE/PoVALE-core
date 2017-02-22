@@ -41,12 +41,11 @@ public class AssertFalse implements Assertion {
      */
     public AssertFalse(String message) {
         super();
-        this.defaultMessage = "El aserto no se cumple";
+        this.defaultMessage = "Nunca se cumple esta condicion";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

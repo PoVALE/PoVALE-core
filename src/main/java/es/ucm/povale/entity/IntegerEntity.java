@@ -53,5 +53,9 @@ public class IntegerEntity implements Entity{
         return IntegerEntity.class;
     }
     
+    @Override
+    public String toString(){
+        return String.valueOf(this.n);
+    }
     
 }

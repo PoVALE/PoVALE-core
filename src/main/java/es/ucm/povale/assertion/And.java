@@ -47,13 +47,12 @@ public class And implements Assertion {
     public And(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
-        this.defaultMessage = "";
+        this.defaultMessage = "Se deben cumplir las siguientes condiciones:";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
         //crear node con default msg para tree de requisitos iniciales
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

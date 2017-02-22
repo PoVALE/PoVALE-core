@@ -50,5 +50,9 @@ public class StringEntity implements Entity{
         return  StringEntity.class;
     }
     
+    @Override
+    public String toString(){
+           return s;
+    }
     
 }

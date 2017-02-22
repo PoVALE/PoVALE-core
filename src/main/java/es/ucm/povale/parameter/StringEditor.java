@@ -21,29 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package es.ucm.povale.plugin;
+package es.ucm.povale.parameter;
 
-import es.ucm.povale.entity.Entity;
-import java.util.List;
-
-import es.ucm.povale.function.Function;
-import es.ucm.povale.predicate.Predicate;
 import es.ucm.povale.parameter.ParameterEditor;
-import java.util.Map;
+import es.ucm.povale.entity.StringEntity;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public abstract class PluginInfo {
-    
-    
-    public abstract String getIdPlugin();
-    
-    public abstract List<Function> getFunctions();
-    
-    public  abstract List<Predicate> getPredicates();
-   
-    public abstract  List<Class<?>> getEntities();
-    
-    public abstract List<String> getEditorTypes();
-    
-    public abstract ParameterEditor<? extends Entity> getEditor(String name, Map<String,String> parameters);
-    
+/**
+ *
+ * @author PoVALE Team
+ */
+public class StringEditor extends ParameterEditor<StringEntity> {
+
+    private HBox pane;
+    private TextField input;
+
+    public StringEditor() {
+        
+    }
+
+    @Override
+    public Pane getPane() {
+        HBox paneI = new HBox();
+        TextField inputI = new TextField();
+        inputI.setPrefColumnCount(21);
+        paneI.getChildren().add(inputI);
+        this.pane = paneI;
+        this.input = inputI;
+        return paneI;
+    }
+
+    @Override
+    public StringEntity getEntity() {
+        return new StringEntity(input.getText());
+    }
+
+    @Override
+    public boolean isValid() {
+        return input.getText().isEmpty();
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+    }
+
 }

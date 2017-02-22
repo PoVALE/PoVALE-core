@@ -21,29 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package es.ucm.povale.plugin;
+package es.ucm.povale.parameter;
+
 
 import es.ucm.povale.entity.Entity;
 import java.util.List;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-import es.ucm.povale.function.Function;
-import es.ucm.povale.predicate.Predicate;
-import es.ucm.povale.parameter.ParameterEditor;
-import java.util.Map;
-
-public abstract class PluginInfo {
+/**
+ *
+ * @author PoVALE Team
+ * @param <T>
+ */
+public abstract class ParameterEditor <T extends Entity>{
     
+    public abstract Pane getPane();
     
-    public abstract String getIdPlugin();
+    public abstract T getEntity();
     
-    public abstract List<Function> getFunctions();
+    public abstract boolean isValid();
     
-    public  abstract List<Predicate> getPredicates();
+    public abstract void setStage(Stage stage);
+    
    
-    public abstract  List<Class<?>> getEntities();
-    
-    public abstract List<String> getEditorTypes();
-    
-    public abstract ParameterEditor<? extends Entity> getEditor(String name, Map<String,String> parameters);
     
 }

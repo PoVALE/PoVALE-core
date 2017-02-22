@@ -41,12 +41,6 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
-        <dependency>
-            <groupId>es.ucm.povale</groupId>
-            <artifactId>PoVALE-view</artifactId>
-            <version>1.0</version>
-            <type>jar</type>
-        </dependency>
     </dependencies>
 
 

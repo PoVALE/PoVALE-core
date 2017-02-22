@@ -45,12 +45,11 @@ public class Not implements Assertion {
     public Not(Assertion assertion, String message) {
         super();
         this.assertion = assertion;       
-        this.defaultMessage = "";
+        this.defaultMessage = "No se debe cumplir la siguiente condicion:";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

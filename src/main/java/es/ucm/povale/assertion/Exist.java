@@ -53,13 +53,12 @@ public class Exist implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-        this.defaultMessage = "Existe un elemento " + variable + " en " + term +
-                " tal que se cumple: " + assertion.getMessage();
+        this.defaultMessage = "Existe un elemento " + variable + " en " + term.toString() +
+                " tal que cumple: ";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

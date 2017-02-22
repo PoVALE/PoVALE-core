@@ -43,12 +43,11 @@ public class AssertTrue implements Assertion {
      */
     public AssertTrue(String message) {
         super();
-        this.defaultMessage = "";
+        this.defaultMessage = "Siempre se cumple esta condicion";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

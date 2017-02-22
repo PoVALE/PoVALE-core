@@ -23,8 +23,6 @@
  */
 package es.ucm.povale.assertion;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.ListEntity;
@@ -50,12 +48,12 @@ public class ExistOne implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-        this.defaultMessage = "";
+        this.defaultMessage = "Existe solo un elemento " + variable + " en " + term.toString() +
+                " tal que cumple: ";
         this.message = message;
         this.node = new AssertInformation (this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

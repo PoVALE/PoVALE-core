@@ -55,12 +55,11 @@ public class PredicateApplication implements Assertion {
     public PredicateApplication(String predicate, List<Term> terms, String message) {
         this.predicate = predicate;
         this.terms = terms;        
-        this.defaultMessage = "";
+        this.defaultMessage = "";//completar
         this.message = message;
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

@@ -50,12 +50,11 @@ public class Or implements Assertion {
     public Or(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
-        this.defaultMessage = "";
+        this.defaultMessage = "Debe cumplirse al menos una de las siguientes condiciones:";
         this.message = message;
         this.node = new AssertInformation (this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }

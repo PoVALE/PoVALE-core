@@ -38,6 +38,10 @@ public final class Import {
         this.environment = env;
         addPlugin();
     }
+
+    public Import(String a) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void addPlugin(){
         

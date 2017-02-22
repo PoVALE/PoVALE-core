@@ -52,7 +52,6 @@ public class Entail implements Assertion {
         this.node = new AssertInformation(this.message, null);
     }
     
-    @Override
     public String getMessage() {
         return message;
     }
@@ -90,6 +89,14 @@ public class Entail implements Assertion {
         if (rightChild.getResult() || !leftChild.getResult()) {
             result = true;
         }
+        
+        if(message == null){
+            node.setMessage(defaultMessage);
+            leftChild.setMessage("Elem1: " + leftChild.getMessage());
+            rightChild.setMessage("Elem2: " + rightChild.getMessage());
+        }
+        
+        
         node.addChild(rightChild);
         node.addChild(leftChild);
         

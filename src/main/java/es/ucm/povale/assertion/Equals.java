@@ -58,7 +58,6 @@ public class Equals implements Assertion {
  
     }
     
-    @Override
     public String getMessage() {
         return message;
     }
@@ -98,13 +97,10 @@ public class Equals implements Assertion {
 
         result = l.equals(r);
         if(message == null){
-            this.node.setMessage(l + defaultMessage + r);
+            this.node.setMessage(l.toString() + defaultMessage + r.toString());
         }
-        else{ 
-            this.node.setMessage(l + message + r);
-        }
-        
-        this.node.setResult(result);//actualizamos el valor del aserto evaluado
+
+        this.node.setResult(result);
 
         return this.node;
     }

@@ -53,5 +53,5 @@ public interface Assertion {
      * @see AssertionError
      */
     public AssertInformation check(Environment env);
-    public String getMessage();
+
 }
