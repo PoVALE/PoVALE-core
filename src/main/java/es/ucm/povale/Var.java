@@ -5,6 +5,7 @@
  */
 package es.ucm.povale;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,12 +19,12 @@ public class Var {
     private String type;
     private Map<String,String> parameters;
 
-    public Var(String label, String name, String description, String type, Map<String,String> parameters) {
+    public Var(String label, String name, String description, String type) {
         this.label = label;
         this.name = name;
         this.description = description;
         this.type = type;
-        this.parameters = parameters;
+        this.parameters = new HashMap<>();
     }
 
     public String getLabel() {

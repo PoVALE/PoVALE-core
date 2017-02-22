@@ -11,9 +11,9 @@ import es.ucm.povale.entity.StringEntity;
 import java.util.Arrays;
 import java.util.List;
 import es.ucm.povale.function.Function;
-import es.ucm.povale.parameter.ParameterEditor;
 import es.ucm.povale.plugin.PluginInfo;
 import es.ucm.povale.predicate.Predicate;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -31,12 +31,12 @@ public class CorePlugin extends PluginInfo {
 
     @Override
     public List<Function> getFunctions() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public List<Predicate> getPredicates() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -49,16 +49,16 @@ public class CorePlugin extends PluginInfo {
 
     @Override
     public List<String> getEditorTypes() {
-        return Arrays.asList("FileEntity","DirectoryEntity");
+        return Arrays.asList("StringEntity","IntegerEntity");
     }
     
      @Override
     public ParameterEditor<? extends Entity> getEditor(String name, Map<String,String> parameters){
-        if(name == "StringEntity"){
+        if("StringEntity".equals(name)){
             return new StringEditor(parameters);
         }
             
-        else if(name == "IntegerEntity"){
+        else if("IntegerEntity".equals(name)){
             return new IntegerEditor(parameters);
         }
         
