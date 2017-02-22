@@ -24,6 +24,8 @@
 package es.ucm.povale.parameter;
 
 import es.ucm.povale.entity.StringEntity;
+import java.util.List;
+import java.util.Map;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.HBox;
@@ -37,24 +39,21 @@ import javafx.util.converter.NumberStringConverter;
  */
 public class IntegerEditor extends ParameterEditor<StringEntity> {
 
-    Pane pane;
-    TextField numberField;
+    private HBox pane;
+    private TextField numberField;
         
-    public IntegerEditor() {
-        
-    }
-    
-    @Override
-    public Pane getPane() {
-        Pane pane = new HBox();
-        TextField numberField = new TextField();
+    public IntegerEditor(Map<String,String> parameters) {
+        this.pane = new HBox();
+        this.numberField = new TextField();
         numberField = new TextField();
         numberField.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
         numberField.setPrefColumnCount(21);
         pane.getChildren().add(numberField);
-        this.pane = pane;
-        this.numberField = numberField;
-        return pane;
+    }
+    
+    @Override
+    public Pane getPane() {
+        return this.pane;
     }
 
     @Override

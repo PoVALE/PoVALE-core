@@ -32,6 +32,8 @@ import java.util.Set;
 
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.function.Function;
+import es.ucm.povale.parameter.IntegerEditor;
+import es.ucm.povale.parameter.StringEditor;
 import es.ucm.povale.plugin.PluginInfo;
 import es.ucm.povale.predicate.Predicate;
 

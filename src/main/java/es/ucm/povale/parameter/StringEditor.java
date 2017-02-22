@@ -23,8 +23,9 @@
  */
 package es.ucm.povale.parameter;
 
-import es.ucm.povale.parameter.ParameterEditor;
 import es.ucm.povale.entity.StringEntity;
+import java.util.List;
+import java.util.Map;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -39,19 +40,16 @@ public class StringEditor extends ParameterEditor<StringEntity> {
     private HBox pane;
     private TextField input;
 
-    public StringEditor() {
-        
+    public StringEditor(Map<String,String> parameters) {
+        this.pane = new HBox();
+        this.input = new TextField();
+        input.setPrefColumnCount(21);
+        pane.getChildren().add(input);
     }
 
     @Override
     public Pane getPane() {
-        HBox paneI = new HBox();
-        TextField inputI = new TextField();
-        inputI.setPrefColumnCount(21);
-        paneI.getChildren().add(inputI);
-        this.pane = paneI;
-        this.input = inputI;
-        return paneI;
+        return this.pane;
     }
 
     @Override
