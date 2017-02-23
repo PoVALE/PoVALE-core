@@ -131,11 +131,16 @@ public class Environment {
         return variables.keySet();
     }
     
+    public void addVariable(Var variable, Entity value){
+        
+        this.variables.put(variable, value);
+    }
+    
     public void addVariables(List<Var> variables){
         
-        variables.stream().forEach((v)-> {
-           this.variables.put(v, null);
-        });
+        for(int i=0; i<variables.size(); i++){
+            this.variables.put(variables.get(i), null);
+        }
     }
     
     public void setVariableValue(Var variable, Entity value){
