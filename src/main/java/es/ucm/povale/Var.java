@@ -26,6 +26,15 @@ public class Var {
         this.type = type;
         this.parameters = new HashMap<>();
     }
+    
+    public Var(String label, String name, String description, String type, Map<String, String> parameters) {
+        this.label = label;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.parameters = new HashMap<>();
+        this.parameters.putAll(parameters);
+    }
 
     public String getLabel() {
         return label;

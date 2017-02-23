@@ -52,7 +52,7 @@ public class Equals implements Assertion {
     public Equals(Term lhs, Term rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
-        this.defaultMessage = " no es igual a ";
+        this.defaultMessage = " es igual a ";
         this.message = message;
         this.node = new AssertInformation(this.message, null);
  
@@ -98,6 +98,9 @@ public class Equals implements Assertion {
         result = l.equals(r);
         if(message == null){
             this.node.setMessage(l.toString() + defaultMessage + r.toString());
+        }
+        else{
+            this.node.setMessage(l.toString() + message + r.toString());
         }
 
         this.node.setResult(result);

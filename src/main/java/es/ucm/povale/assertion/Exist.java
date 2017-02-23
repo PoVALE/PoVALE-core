@@ -95,7 +95,10 @@ public class Exist implements Assertion {
         for (Entity e : list.getList()) {
 
             env.getValues().replace(variable, e);
-            AssertInformation child = assertion.check(env);
+            AssertInformation child;
+            //aqui falla deberiamos crear una nueva instancia cada vez
+            //cuando lo solucionemos tomar la misma solucion en existOne y forAll
+            child = assertion.check(env);
             if (child.getResult()) {
                 result = true;
                 //break;

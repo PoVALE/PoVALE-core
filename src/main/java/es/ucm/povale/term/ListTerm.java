@@ -39,17 +39,19 @@ public class ListTerm implements Term {
     public ListTerm(List<Term> terms) {
         this.terms = terms;
     }
+    
 
     public Entity evaluate(Environment env) {
 
-        List<Entity> list = new LinkedList<>();
-
+        //List<Entity> list = new LinkedList<>();
+        ListEntity entities = new ListEntity();
         for (Term t : terms) {
-            list.add(t.evaluate(env));
+            //list.add(t.evaluate(env));
+            entities.addEntity(t.evaluate(env));
         }
 
-        ListEntity entities = new ListEntity(list);
-
+        //ListEntity entities = new ListEntity(list);
+        
         return entities;
     }
 

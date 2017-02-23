@@ -41,6 +41,10 @@ public class ListEntity implements Entity{
         this.list = new LinkedList<>();
         this.list.addAll(list);
     }
+    
+    public ListEntity() {
+        this.list = new LinkedList<>();
+    }
 
     public List<Entity> getList() {
         return list;
