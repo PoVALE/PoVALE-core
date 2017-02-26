@@ -59,7 +59,7 @@ public class StringEditor extends ParameterEditor<StringEntity> {
 
     @Override
     public boolean isValid() {
-        return input.getText().isEmpty();
+        return !input.getText().isEmpty();
     }
 
     @Override

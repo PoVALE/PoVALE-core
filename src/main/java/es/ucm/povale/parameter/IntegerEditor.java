@@ -63,7 +63,7 @@ public class IntegerEditor extends ParameterEditor<StringEntity> {
 
     @Override
     public boolean isValid() {
-        return numberField.getText().isEmpty();
+        return !numberField.getText().isEmpty();
     }
 
     @Override
