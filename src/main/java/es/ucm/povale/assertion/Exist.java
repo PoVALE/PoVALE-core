@@ -84,8 +84,11 @@ public class Exist implements Assertion {
         }
         
         AssertInformation exist = new AssertInformation(finalMessage, null);
+        
+        Entity oldValue = env.getValues().get(variable);
+                
         for (Entity e : list.getList()) {
-            env.getValues().replace(variable, e);
+            env.getValues().put(variable, e);
             AssertInformation child;
             child = assertion.check(env);
             if (child.getResult()) {
@@ -94,6 +97,10 @@ public class Exist implements Assertion {
             exist.addChild(child);
         }
         exist.setResult(result);
+        
+        if(oldValue != null){
+             env.getValues().put(variable, oldValue);
+        }
 
         return exist;
     }

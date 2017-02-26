@@ -23,7 +23,7 @@
  */
 package es.ucm.povale.environment;
 
-import es.ucm.povale.Var;
+import es.ucm.povale.variable.Var;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

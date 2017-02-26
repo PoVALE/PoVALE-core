@@ -83,8 +83,11 @@ public class ForAll implements Assertion {
         }
         
         AssertInformation forAll = new AssertInformation(finalMessage, null);
+        Entity oldValue = env.getValues().get(variable);
+        
         for (Entity e : list.getList()) {
-            env.getValues().replace(variable, e);
+            env.getValues().put(variable, e);
+            
             AssertInformation child = assertion.check(env);
             if (!child.getResult()) {
                 result = false;
@@ -93,6 +96,10 @@ public class ForAll implements Assertion {
         }
         
         forAll.setResult(result);
+        
+        if(oldValue != null){
+             env.getValues().put(variable, oldValue);
+        }
 
         return forAll;
     }
