@@ -131,9 +131,9 @@ public class Environment {
         return variables.keySet();
     }
     
-    public void addVariable(Var variable, Entity value){
+    public void addValue(Var variable, Entity value){
         
-        this.variables.put(variable, value);
+        this.values.put(variable.getName(), value);
     }
     
     public void addVariables(List<Var> variables){

@@ -41,9 +41,9 @@ public class StringEntity implements Entity{
     @Override
     public boolean equals(Object obj) {
         StringEntity b = (StringEntity)obj;
-        return (this.s == b.s);
+        return (this.s.equals(b.toString()));
     }
-
+    
 
     @Override
     public Class<? extends Entity> getType() {
