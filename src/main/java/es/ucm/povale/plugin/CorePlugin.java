@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.ucm.povale.parameter;
+package es.ucm.povale.plugin;
 
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.IntegerEntity;
@@ -11,6 +11,9 @@ import es.ucm.povale.entity.StringEntity;
 import java.util.Arrays;
 import java.util.List;
 import es.ucm.povale.function.Function;
+import es.ucm.povale.parameter.IntegerEditor;
+import es.ucm.povale.parameter.ParameterEditor;
+import es.ucm.povale.parameter.StringEditor;
 import es.ucm.povale.plugin.PluginInfo;
 import es.ucm.povale.predicate.Predicate;
 import java.util.Collections;

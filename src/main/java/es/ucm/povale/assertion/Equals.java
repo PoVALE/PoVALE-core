@@ -90,22 +90,20 @@ public class Equals implements Assertion {
     @Override
     public AssertInformation check(Environment env) {
 
-        boolean result;
-
         Entity l = lhs.evaluate(env);
         Entity r = rhs.evaluate(env);
 
-        result = l.equals(r);
+        String finalMessage = null;
         if(message == null){
-            this.node.setMessage(l.toString() + defaultMessage + r.toString());
+            finalMessage = l.toString() + defaultMessage + r.toString();
+            //this.node.setMessage(l.toString() + defaultMessage + r.toString());
         }
         else{
-            this.node.setMessage(l.toString() + message + r.toString());
+            finalMessage = l.toString() + message + r.toString();
+//            this.node.setMessage(l.toString() + message + r.toString());
         }
 
-        this.node.setResult(result);
-
-        return this.node;
+        return new AssertInformation(finalMessage, l.equals(r));
     }
     
 }
