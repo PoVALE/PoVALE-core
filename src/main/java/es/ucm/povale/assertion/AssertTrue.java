@@ -35,34 +35,15 @@ import es.ucm.povale.assertInformation.AssertInformation;
 public class AssertTrue implements Assertion {
 
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     
     /**
      * Class constructor.
+     * @param message
      */
     public AssertTrue(String message) {
-        super();
-        this.defaultMessage = "Siempre se cumple esta condicion";
-        this.message = message;
-        this.node = new AssertInformation(this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
         this.message = message;
     }
     
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
-    }
     /**
      * The method always evaluates to true.
      * 
@@ -75,12 +56,15 @@ public class AssertTrue implements Assertion {
      */
     @Override
     public AssertInformation check(Environment env) {
+        String defaultMessage = "Siempre se cumple esta condicion";
+        String finalMessage;
         if(this.message == null){
-            node.setMessage(this.defaultMessage);
+            finalMessage = defaultMessage;
         }
-        node.setResult(true);
-        
-        return node;
+        else{
+            finalMessage = this.message;
+        }        
+        return new AssertInformation(finalMessage, true);
     }
 
 

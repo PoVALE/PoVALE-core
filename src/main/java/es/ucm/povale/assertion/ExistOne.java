@@ -37,8 +37,7 @@ public class ExistOne implements Assertion {
     private final Term term;
     private final Assertion assertion;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
+
     
     /**
      * Class constructor specifying variable, term and assertion.
@@ -48,26 +47,7 @@ public class ExistOne implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-        this.defaultMessage = "Existe solo un elemento " + variable + " en " + term.toString() +
-                " tal que cumple: ";
         this.message = message;
-        this.node = new AssertInformation (this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
     
     /**
@@ -86,7 +66,18 @@ public class ExistOne implements Assertion {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-
+        String defaultMessage = "Existe solo un elemento " + variable + " en " + term.toString() +
+                " tal que cumple: ";
+        String finalMessage;
+        
+        if(message == null){
+            finalMessage = defaultMessage;
+        }
+        else {
+            finalMessage = message;
+        }
+        
+        AssertInformation existOne = new AssertInformation(finalMessage, null);
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
             AssertInformation child = assertion.check(env);
@@ -99,14 +90,12 @@ public class ExistOne implements Assertion {
                     result = true;
                 }
             }
-            node.addChild(child);
+            existOne.addChild(child);
         }
-
-        if(message == null)
-            this.node.setMessage(defaultMessage);
-        this.node.setResult(result);
         
-        return this.node;
+        existOne.setResult(result);
+        
+        return existOne;
     }
 
 }

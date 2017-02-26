@@ -39,8 +39,6 @@ public class Or implements Assertion {
 
     private final List<Assertion> assertions;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     
     /**
      * Class constructor specifying list of asserts.
@@ -50,25 +48,7 @@ public class Or implements Assertion {
     public Or(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
-        this.defaultMessage = "Debe cumplirse al menos una de las siguientes condiciones:";
         this.message = message;
-        this.node = new AssertInformation (this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -86,22 +66,27 @@ public class Or implements Assertion {
     public AssertInformation check(Environment env) {
         
         boolean result = false;
-
+        String defaultMessage = "Debe cumplirse al menos una de las siguientes condiciones:";
+        String finalMessage;
+        
+        if(this.message == null){
+            finalMessage = defaultMessage;
+        }
+        else{
+            finalMessage = message;
+        }
+        
+        AssertInformation or = new AssertInformation(finalMessage, null);
         for (int i = 0; i < assertions.size(); i++) {
             AssertInformation child = assertions.get(i).check(env);
             if (!child.getResult()){
                 result = true;
-            }
-            
-            this.node.addChild(child);
+            }    
+            or.addChild(child);
         }
-
-        if(this.message == null)
-            this.node.setMessage(defaultMessage);
+        or.setResult(result);
         
-        this.node.setResult(result);
-        
-        return this.node;
+        return or;
     }
 
 }

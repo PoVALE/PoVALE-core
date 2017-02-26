@@ -40,8 +40,6 @@ public class Equals implements Assertion {
     private final Term lhs;
     private final Term rhs;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     
     
     /**
@@ -52,26 +50,7 @@ public class Equals implements Assertion {
     public Equals(Term lhs, Term rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
-        this.defaultMessage = " es igual a ";
         this.message = message;
-        this.node = new AssertInformation(this.message, null);
- 
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
 
     /**
@@ -92,15 +71,13 @@ public class Equals implements Assertion {
 
         Entity l = lhs.evaluate(env);
         Entity r = rhs.evaluate(env);
-
-        String finalMessage = null;
+        String defaultMessage = " es igual a ";
+        String finalMessage;
         if(message == null){
             finalMessage = l.toString() + defaultMessage + r.toString();
-            //this.node.setMessage(l.toString() + defaultMessage + r.toString());
         }
         else{
             finalMessage = l.toString() + message + r.toString();
-//            this.node.setMessage(l.toString() + message + r.toString());
         }
 
         return new AssertInformation(finalMessage, l.equals(r));

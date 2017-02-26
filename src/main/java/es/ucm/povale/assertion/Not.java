@@ -37,33 +37,14 @@ public class Not implements Assertion {
 
     private final Assertion assertion;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
+
     /**
      * Class constructor specifying assertion.
      */
     public Not(Assertion assertion, String message) {
         super();
         this.assertion = assertion;       
-        this.defaultMessage = "No se debe cumplir la siguiente condicion:";
         this.message = message;
-        this.node = new AssertInformation(this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
     
      /**
@@ -81,20 +62,23 @@ public class Not implements Assertion {
     @Override
     public AssertInformation check(Environment env) {
         boolean result;
-        AssertInformation child = assertion.check(env);
-        if (!child.getResult()) {
-            result = true;
-        } else {
-            result = false;
+        String defaultMessage = "No se debe cumplir la siguiente condicion:";
+        String finalMessage;
+        
+        if(message == null){
+            finalMessage = defaultMessage;
         }
-        this.node.addChild(child);
+        else{
+            finalMessage = message;
+        }
         
-        if(message == null)
-            this.node.setMessage(defaultMessage);
+        AssertInformation child = assertion.check(env);
+        result = !child.getResult();
         
-        this.node.setResult(result);
+        AssertInformation not = new AssertInformation(finalMessage, result);
+        not.addChild(child);
         
-        return this.node;
+        return not;
     }
 
 }

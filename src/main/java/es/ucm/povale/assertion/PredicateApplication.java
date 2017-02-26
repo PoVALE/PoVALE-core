@@ -30,7 +30,6 @@ import java.util.Optional;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.predicate.Predicate;
-import es.ucm.povale.term.ListTerm;
 import es.ucm.povale.term.Term;
 import es.ucm.povale.assertInformation.AssertInformation;
 
@@ -45,8 +44,6 @@ public class PredicateApplication implements Assertion {
     private final String predicate;
     private final List<Term> terms;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     /**
      * Class constructor specifying predicate and list of terms.
      *
@@ -55,25 +52,7 @@ public class PredicateApplication implements Assertion {
     public PredicateApplication(String predicate, List<Term> terms, String message) {
         this.predicate = predicate;
         this.terms = terms;        
-        this.defaultMessage = "";//completar
         this.message = message;
-        this.node = new AssertInformation(this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
     }
     
     /**
@@ -93,23 +72,25 @@ public class PredicateApplication implements Assertion {
 
         List<Entity> list = new LinkedList();
         boolean result = true;
+        String defaultMessage = "Se cumple la funcion de predicado";
+        String finalMessage;
+        if(message == null){
+            finalMessage = defaultMessage;
+        }
+        else{
+            finalMessage = message;
+        }        
+
         terms.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
         
         Predicate p = env.getPredicate(predicate);
         if (!p.call(list.toArray(new Entity[list.size()]))) {
-            //error
             result = false;
         }
         
-        if(message == null){
-            this.node.setMessage(defaultMessage);
-        }
-        
-        this.node.setResult(result);
-            
-        return this.node;
+        return new AssertInformation(finalMessage, result);
     }
 
 }

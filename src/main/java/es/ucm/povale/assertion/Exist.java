@@ -42,8 +42,7 @@ public class Exist implements Assertion {
     private final Term term;
     private final Assertion assertion;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
+
     /**
      * Class constructor specifying variable, term and assertion.
      *
@@ -53,27 +52,9 @@ public class Exist implements Assertion {
         this.variable = variable;
         this.term = term;
         this.assertion = assertion;
-        this.defaultMessage = "Existe un elemento " + variable + " en " + term.toString() +
-                " tal que cumple: ";
-        this.message = message;
-        this.node = new AssertInformation(this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
         this.message = message;
     }
     
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
-    }
 
     /**
      * The method evaluates to true when there exists at least one evaluated 
@@ -91,27 +72,30 @@ public class Exist implements Assertion {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-
+        String defaultMessage = "Existe un elemento " + variable + " en " + term.toString() +
+                " tal que cumple: ";
+        String finalMessage;
+  
+        if(message == null){
+            finalMessage = defaultMessage;
+        }
+        else {
+            finalMessage = message;
+        }
+        
+        AssertInformation exist = new AssertInformation(finalMessage, null);
         for (Entity e : list.getList()) {
-
             env.getValues().replace(variable, e);
             AssertInformation child;
-            //aqui falla deberiamos crear una nueva instancia cada vez
-            //cuando lo solucionemos tomar la misma solucion en existOne y forAll
             child = assertion.check(env);
             if (child.getResult()) {
                 result = true;
-                //break;
             }
-            this.node.addChild(child);
+            exist.addChild(child);
         }
-        
-        if(message == null)
-            this.node.setMessage(defaultMessage);
-        
-        node.setResult(result);
+        exist.setResult(result);
 
-        return this.node;
+        return exist;
     }
 
 }

@@ -37,8 +37,7 @@ public class Entail implements Assertion {
     private final Assertion lhs;
     private final Assertion rhs;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
+
     /**
      * Class constructor specifying left and right asserts.
      *
@@ -47,28 +46,9 @@ public class Entail implements Assertion {
     public Entail(Assertion lhs, Assertion rhs, String message) {
         this.lhs = lhs;
         this.rhs = rhs;
-        this.defaultMessage = "elem1 implica a elem2";
-        this.message = message;
-        this.node = new AssertInformation(this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
         this.message = message;
     }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
-    }
-
-    
+        
     /**
      * The method evaluates to true when the left assert is false or the right
      * assert is true. Else, it evaluates to false.
@@ -84,6 +64,8 @@ public class Entail implements Assertion {
     public AssertInformation check(Environment env) {
 
         boolean result = false;
+        String defaultMessage = "elem1 implica a elem2";
+        String finalMessage;
         AssertInformation leftChild = lhs.check(env);
         AssertInformation rightChild = rhs.check(env);
         if (rightChild.getResult() || !leftChild.getResult()) {
@@ -91,18 +73,20 @@ public class Entail implements Assertion {
         }
         
         if(message == null){
-            node.setMessage(defaultMessage);
+            finalMessage = defaultMessage;
             leftChild.setMessage("Elem1: " + leftChild.getMessage());
             rightChild.setMessage("Elem2: " + rightChild.getMessage());
         }
+        else{
+           finalMessage = this.message;
+        }
         
+        AssertInformation entail = new AssertInformation(finalMessage, result);
         
-        node.addChild(rightChild);
-        node.addChild(leftChild);
-        
-        node.setResult(result);
+        entail.addChild(rightChild);
+        entail.addChild(leftChild);
 
-        return node;
+        return entail;
     }
 
 }

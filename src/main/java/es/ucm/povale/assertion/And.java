@@ -37,37 +37,20 @@ public class And implements Assertion {
 
     private List<Assertion> assertions;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     /**
      * Class constructor specifying list of asserts.
      *
+     * @param assertions
+     * @param message
      */
     
     public And(List<Assertion> assertions, String message) {
         super();
         this.assertions = assertions;
-        this.defaultMessage = "Se deben cumplir las siguientes condiciones:";
         this.message = message;
-        this.node = new AssertInformation(this.message, null);
-        //crear node con default msg para tree de requisitos iniciales
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
+
     }
 
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
-    }
     /**
      * The method evaluates to true when all asserts evaluate to true. Else it
      * evaluates to false.
@@ -83,21 +66,29 @@ public class And implements Assertion {
     public AssertInformation check(Environment env) {
         
         boolean result = true;
+        String defaultMessage = "Se deben cumplir las siguientes condiciones:";
+        String finalMessage;
+        
+        if(this.message == null){
+            finalMessage = defaultMessage;
+        }
+        else{
+            finalMessage = this.message;
+        }
+        
+        AssertInformation and = new AssertInformation(finalMessage, null);
         
         for (int i = 0; i < assertions.size(); i++) {
             AssertInformation child = assertions.get(i).check(env);
             if (!child.getResult()) {
                 result = false;
             }
-            node.addChild(child);
+            and.addChild(child);
         }
         
-        if(this.message == null){
-            node.setMessage(defaultMessage);
-        }
-        this.node.setResult(result);
+        and.setResult(result);
         
-        return this.node;
+        return and;
     }
 
 }

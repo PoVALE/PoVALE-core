@@ -42,8 +42,6 @@ public class ForAll implements Assertion {
     private Term term;
     private Assertion assertion;
     private String message;
-    private String defaultMessage;
-    private AssertInformation node;
     
     /**
      * Class constructor specifying variable, term and assertion.
@@ -53,29 +51,9 @@ public class ForAll implements Assertion {
     public ForAll(String variable, Term term, Assertion assertion, String message) {
         this.variable = variable;
         this.term = term;
-        this.assertion = assertion;        
-        this.defaultMessage = "Para todo elemento " + variable + " en " + term.toString() +
-                " cumple: ";        
-        this.message = message;
-        this.node = new AssertInformation (this.message, null);
-    }
-    
-    public String getMessage() {
-        return message;
-    }
-    
-    public void setMessage(String message) {
+        this.assertion = assertion;          
         this.message = message;
     }
-    
-    public String getDefaultMessage() {
-        return defaultMessage;
-    }
-
-    public void setDefaultMessage(String defaultMessage) {
-        this.defaultMessage = defaultMessage;
-    }
-
     
     /**
      * The method evaluates to true when the assert is true for all evaluated
@@ -93,24 +71,30 @@ public class ForAll implements Assertion {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = true;
+        String defaultMessage = "Para todo elemento " + variable + " en " + term.toString() +
+                " cumple: ";      
+        String finalMessage;
         
-
+        if(message == null){
+            finalMessage = defaultMessage;
+        }
+        else {
+            finalMessage = message;
+        }
+        
+        AssertInformation forAll = new AssertInformation(finalMessage, null);
         for (Entity e : list.getList()) {
             env.getValues().replace(variable, e);
             AssertInformation child = assertion.check(env);
             if (!child.getResult()) {
                 result = false;
             }
-            this.node.addChild(child);
+            forAll.addChild(child);
         }
         
-        if (message == null){
-            this.node.setMessage(this.defaultMessage);
-        }
-        
-        this.node.setResult(result);
+        forAll.setResult(result);
 
-        return this.node;
+        return forAll;
     }
 
 }
