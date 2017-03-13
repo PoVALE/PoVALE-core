@@ -23,6 +23,10 @@
  */
 package es.ucm.povale.entity;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+
 /**
  * Base IntegerEntity class. 
  * 
@@ -56,6 +60,12 @@ public class IntegerEntity implements Entity{
     @Override
     public String toString(){
         return String.valueOf(this.n);
+    }
+
+    @Override
+    public void toXML(Element contents, Document doc) {
+        Text t = doc.createTextNode(this.toString());
+        contents.appendChild(t);
     }
     
 }

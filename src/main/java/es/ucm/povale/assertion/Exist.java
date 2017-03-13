@@ -101,6 +101,9 @@ public class Exist implements Assertion {
         if(oldValue != null){
              env.getValues().put(variable, oldValue);
         }
+        else{
+            env.getValues().remove(variable);
+        }
 
         return exist;
     }

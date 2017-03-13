@@ -25,6 +25,8 @@ package es.ucm.povale.entity;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Base ListEntity class. 
@@ -58,5 +60,12 @@ public class ListEntity implements Entity{
     @Override
     public Class<? extends Entity> getType() {
         return  ListEntity.class;
+    }
+
+    @Override
+    public void toXML(Element contents, Document doc) {
+        for(Entity e:list){
+            e.toXML(contents, doc);
+        }
     }
 }

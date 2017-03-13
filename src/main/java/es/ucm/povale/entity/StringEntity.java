@@ -23,6 +23,10 @@
  */
 package es.ucm.povale.entity;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+
 /**
  * Base StringEntity class. 
  * 
@@ -53,6 +57,12 @@ public class StringEntity implements Entity{
     @Override
     public String toString(){
            return s;
+    }
+    
+    @Override
+    public void toXML(Element contents, Document doc) {
+        Text t = doc.createTextNode(this.toString());
+        contents.appendChild(t);
     }
     
 }

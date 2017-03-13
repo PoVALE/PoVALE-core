@@ -16,6 +16,10 @@
 
 package es.ucm.povale.entity;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+
 
 /**
  * These are any entities for which we don't have specific support. This is
@@ -47,5 +51,11 @@ public final class WrappedObjectEntity<T> implements Entity {
     @Override
     public Class<? extends Entity> getType() {
         return  WrappedObjectEntity.class;
+    }
+
+    @Override
+    public void toXML(Element contents, Document doc) {
+        Text t = doc.createTextNode(this.toString());
+        contents.appendChild(t);
     }
 }

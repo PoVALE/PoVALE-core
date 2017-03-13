@@ -136,6 +136,10 @@ public class Environment {
         this.values.put(variable.getName(), value);
     }
     
+    public Entity getValue(String varName){
+        return this.values.get(varName);
+    }
+    
     public void addVariables(List<Var> variables){
         
         for(int i=0; i<variables.size(); i++){

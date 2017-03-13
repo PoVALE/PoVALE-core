@@ -23,6 +23,9 @@
  */
 package es.ucm.povale.entity;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * Base Entity class. 
  * 
@@ -39,5 +42,9 @@ public interface Entity {
     default Class<? extends Entity> getType(){
         return this.getClass();
     }
+    
+    public abstract void toXML(Element contents, Document doc);
+    
+   // public static Class<? extends Entity> fromXML(Element contents, Document doc);
 
 }
