@@ -85,6 +85,10 @@ public class XMLExport {
                 
                 Element contents = document.createElement("contents");
                 environment.getValue(list.get(i).getName()).toXML(contents, document);
+                
+                variable.appendChild(type);
+                variable.appendChild(name);
+                variable.appendChild(contents);
             }
             
             
