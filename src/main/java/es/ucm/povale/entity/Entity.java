@@ -45,6 +45,6 @@ public interface Entity {
     
     public abstract void toXML(Element contents, Document doc);
     
-   // public static Class<? extends Entity> fromXML(Element contents, Document doc);
+   public static Class<? extends Entity> fromXML(Element contents, Document doc);
 
 }
