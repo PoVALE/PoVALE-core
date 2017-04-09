@@ -49,4 +49,5 @@ public interface Entity {
     
     public abstract void writeToZip(ZipOutputStream z, String outputFile) throws IOException;
     
+
 }
