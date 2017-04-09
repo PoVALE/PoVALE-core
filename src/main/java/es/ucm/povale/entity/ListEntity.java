@@ -23,8 +23,10 @@
  */
 package es.ucm.povale.entity;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.ZipOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -66,6 +68,13 @@ public class ListEntity implements Entity{
     public void toXML(Element contents, Document doc) {
         for(Entity e:list){
             e.toXML(contents, doc);
+        }
+    }
+
+    @Override
+    public void writeToZip(ZipOutputStream zipFile, String outputFile) throws IOException {
+        for(Entity e:list){
+            e.writeToZip(zipFile, outputFile);
         }
     }
 }

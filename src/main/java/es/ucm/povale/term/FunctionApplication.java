@@ -48,7 +48,6 @@ public class FunctionApplication implements Term {
         List<Entity> list = new LinkedList<>();
         
         Function f = env.getFunction(function);
-
         args.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
@@ -58,4 +57,9 @@ public class FunctionApplication implements Term {
         
     }
 
+    @Override
+    public String toString(){
+       // Function f = env.getFunction(function);
+        return null;
+    }
 }

@@ -72,7 +72,7 @@ public class PredicateApplication implements Assertion {
 
         List<Entity> list = new LinkedList();
         boolean result = true;
-        String defaultMessage = "Se cumple la funcion de predicado";
+        String defaultMessage = "";
         String finalMessage;
         if(message == null){
             finalMessage = defaultMessage;

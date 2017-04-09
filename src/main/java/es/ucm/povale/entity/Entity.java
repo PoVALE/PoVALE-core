@@ -23,6 +23,8 @@
  */
 package es.ucm.povale.entity;
 
+import java.io.IOException;
+import java.util.zip.ZipOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -45,6 +47,6 @@ public interface Entity {
     
     public abstract void toXML(Element contents, Document doc);
     
-   // public static Class<? extends Entity> fromXML(Element contents, Document doc);
-
+    public abstract void writeToZip(ZipOutputStream z, String outputFile) throws IOException;
+    
 }

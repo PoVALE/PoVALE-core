@@ -23,6 +23,10 @@
  */
 package es.ucm.povale.entity;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -66,6 +70,17 @@ public class IntegerEntity implements Entity{
     public void toXML(Element contents, Document doc) {
         Text t = doc.createTextNode(this.toString());
         contents.appendChild(t);
+    }
+
+    @Override
+    public void writeToZip(ZipOutputStream zipFile, String outputFile) throws IOException {
+        byte[] data;
+        String content = toString();
+        ZipEntry zipEntry = new ZipEntry(outputFile+".txt");
+        zipFile.putNextEntry(zipEntry);
+        data = content.getBytes(Charset.forName("UTF-8"));
+        zipFile.write(data, 0, content.length());
+        zipFile.closeEntry();
     }
     
 }
