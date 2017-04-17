@@ -35,6 +35,7 @@ public class FunctionApplication implements Term {
 
     private String function;
     private List<Term> args;
+    private String message;
 
     public FunctionApplication(String function, List<Term> args) {
         this.function = function;
@@ -51,7 +52,7 @@ public class FunctionApplication implements Term {
         args.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
-        
+        message = f.getMessage(list.toArray(new Entity[list.size()]));
         return f.call(list.toArray(new Entity[list.size()]));
         
         
@@ -59,7 +60,6 @@ public class FunctionApplication implements Term {
 
     @Override
     public String toString(){
-       // Function f = env.getFunction(function);
-        return null;
+        return message;
     }
 }

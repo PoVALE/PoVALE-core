@@ -24,8 +24,10 @@
 package es.ucm.povale.entity;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -83,4 +85,13 @@ public class IntegerEntity implements Entity{
         zipFile.closeEntry();
     }
     
+    /*public static IntegerEntity readFromZip(ZipFile zf, ZipEntry ze) throws IOException{
+        long length = ze.getSize();
+        int intLength = (int)(long) length;
+        byte[] data = new byte[intLength];
+        zf.getInputStream(ze).read(data, 0, intLength);
+        ByteBuffer wrapped = ByteBuffer.wrap(data);
+        return new IntegerEntity(wrapped.getInt());
+    }*/
+
 }

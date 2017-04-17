@@ -18,8 +18,7 @@ package es.ucm.povale.predicate;
 
 import es.ucm.povale.annotation.CallableMethod;
 import es.ucm.povale.entity.Entity;
-import es.ucm.povale.internal.DynamicallyCallable;
-import es.ucm.povale.predicate.TruePredicate;
+import es.ucm.povale.internal.DynamicName;
 
 /**
  * This is the base Predicate class which handles predicates on our system.
@@ -44,11 +43,16 @@ import es.ucm.povale.predicate.TruePredicate;
  *
  * @author Santiago Saavedra
  */
-public abstract class Predicate extends DynamicallyCallable<Entity, Boolean> {
+public abstract class Predicate extends DynamicName<Entity,Boolean>{
     @Override
     public Boolean call(Entity... params) {
         return super.call(params);
     }
+    
+    @Override
+    public String getMessage(Entity... params){
+        return super.getMessage(params);
+    } 
 
     public abstract String getName();
 }

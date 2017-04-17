@@ -72,24 +72,23 @@ public class PredicateApplication implements Assertion {
 
         List<Entity> list = new LinkedList();
         boolean result = true;
-        String defaultMessage = "";
+        terms.stream().forEach((t) -> {
+            list.add(t.evaluate(env));
+        });
+        
+        Predicate p = env.getPredicate(predicate);
+        String defaultMessage = list.get(0).toString() + p.getMessage(list.toArray(new Entity[list.size()]));
         String finalMessage;
         if(message == null){
             finalMessage = defaultMessage;
         }
         else{
             finalMessage = message;
-        }        
-
-        terms.stream().forEach((t) -> {
-            list.add(t.evaluate(env));
-        });
-        
-        Predicate p = env.getPredicate(predicate);
+        }   
         if (!p.call(list.toArray(new Entity[list.size()]))) {
             result = false;
         }
-        
+       
         return new AssertInformation(finalMessage, result);
     }
 

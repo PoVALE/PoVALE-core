@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package es.ucm.povale.annotation;import java.lang.annotation.Retention;
+package es.ucm.povale.annotation;
+import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import es.ucm.povale.internal.DynamicallyCallable;
+import es.ucm.povale.internal.DynamicName;
 
 /**
  * This annotation should be provided to callable methods that are to be
- * dynamically found by {@link DynamicallyCallable} implementations (such
+ * dynamically found by {@link NameMethod} implementations (such
  * as {@link Function} and {@link Predicate}.
  *
  * @author Santiago Saavedra

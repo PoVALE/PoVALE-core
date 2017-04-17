@@ -24,6 +24,7 @@ import es.ucm.povale.entity.Entity;
 import es.ucm.povale.entity.WrappedObjectEntity;
 import es.ucm.povale.internal.DynamicallyCallable;
 import es.ucm.povale.function.IdentityFunction;
+import es.ucm.povale.internal.DynamicName;
 
 /**
  * This is the base Function class which handles functions on our system.
@@ -47,7 +48,7 @@ import es.ucm.povale.function.IdentityFunction;
  *
  * @author Santiago Saavedra
  */
-abstract public class Function extends DynamicallyCallable<Entity, Entity> {
+abstract public class Function extends DynamicName<Entity, Entity> {
 
     // Overridden just to remove the type erasure for Javadoc et al.
     @Override
@@ -86,5 +87,10 @@ abstract public class Function extends DynamicallyCallable<Entity, Entity> {
         }
         return false;
     }
+    
+    @Override
+    public String getMessage(Entity... params){
+        return super.getMessage(params);
+    } 
     
 }

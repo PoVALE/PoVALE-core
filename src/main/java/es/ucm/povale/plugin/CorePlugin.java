@@ -24,7 +24,7 @@ import java.util.Map;
  * @author manuel
  */
 public class CorePlugin extends PluginInfo {
-    public static String CORE_ID_PLUGIN = "es.ucm.povale.CorePlugin";
+    public static String CORE_ID_PLUGIN = "es.ucm.povale.plugin.CorePlugin";
     
 
     @Override
