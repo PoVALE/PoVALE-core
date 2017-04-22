@@ -71,12 +71,7 @@ public abstract class DynamicName<P, R> extends DynamicallyCallable<P, R>{
                 current = m;
             }
         }
-        if (current == null) {
-            throw new RuntimeException(
-                    String.format("No NameMethod found in class %s",
-                            getClass())
-            );
-        }
+        
         return current;
     }
     
@@ -84,6 +79,7 @@ public abstract class DynamicName<P, R> extends DynamicallyCallable<P, R>{
         try {
             typecheck(params);
             return (String) methodName.invoke(this);
+            //si method name es null devolver el nombre del metodo (params, params)
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }

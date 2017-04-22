@@ -21,6 +21,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import es.ucm.povale.annotation.CallableMethod;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Base DynamicallyCallable class which gets a callable method using Java
@@ -92,6 +97,10 @@ public abstract class DynamicallyCallable<P, R> {
      */
     public int getArity() {
         return method.getParameterCount();
+    }
+    
+    public List<String> getDescription(){
+        return IntStream.range(0, getArity()).mapToObj(x -> "d").collect(Collectors.toList());
     }
 
 

@@ -24,6 +24,7 @@
 package es.ucm.povale.entity;
 
 import java.io.IOException;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,7 +32,7 @@ import org.w3c.dom.Element;
 /**
  * Base Entity class. 
  * 
- * An entity is something which could meet requirents. In the core there are
+ * An entity is something which could meet requirements. In the core there are
  * implement three basic types of entities, integer, string and list of
  * entities. it could add more types of entities which are implemented in
  * plugins.
@@ -49,5 +50,8 @@ public interface Entity {
     
     public abstract void writeToZip(ZipOutputStream z, String outputFile) throws IOException;
     
+    
+    //public abstract Class<? extends Entity> fromXML(Element contents, Document doc);
+    //public static Class<? extends Entity> fromZip(ZipFile file);
 
 }
