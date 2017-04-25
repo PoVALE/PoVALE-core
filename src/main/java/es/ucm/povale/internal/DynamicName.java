@@ -74,7 +74,7 @@ public abstract class DynamicName<P, R> extends DynamicallyCallable<P, R>{
         
         return current;
     }
-    
+
     public String getMessage(P... params) {
         try {
             typecheck(params);

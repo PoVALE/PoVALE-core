@@ -16,16 +16,17 @@
 
 package es.ucm.povale.internal;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import es.ucm.povale.annotation.CallableMethod;
-import java.util.LinkedList;
+import es.ucm.povale.annotation.ParamDescription;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * Base DynamicallyCallable class which gets a callable method using Java
@@ -111,10 +112,11 @@ public abstract class DynamicallyCallable<P, R> {
      * @param params The vararg parameters to call the function with
      * @return the result of the function call
      */
+    @SuppressWarnings("unchecked")
     public R call(P... params) {
         try {
             typecheck(params);
-            return (R) method.invoke(this, (P[]) params);
+            return (R) method.invoke(this, (Object[]) params);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
@@ -126,6 +128,7 @@ public abstract class DynamicallyCallable<P, R> {
      * @param params the actual arguments to the function for matching
      * @throws IllegalAccessException when the function does not typecheck
      */
+    @SafeVarargs
     final public void typecheck(P... params)
             throws IllegalAccessException {
         Class<?>[] parameterTypes = method.getParameterTypes();
@@ -156,5 +159,33 @@ public abstract class DynamicallyCallable<P, R> {
             Type genericParameterType
     ) {
         return parameterType.isAssignableFrom(param.getClass());
+    }
+
+    /**
+     * It returns the descriptions of the parameters of the callable function/predicate.
+     *
+     * These are attached to the corresponding parameters in the call method, and are
+     * contained within a @ParamDescription annotation in each parameter.
+     *
+     * @return Array with descriptions. Those components whose parameters do not have any annotation attached
+     *         will be null.
+     */
+    public String[] getParamDescriptions() {
+        String[] result = new String[method.getParameterCount()];
+        Annotation[][] annotations = method.getParameterAnnotations();
+
+        for (int i = 0; i < result.length; i++) {
+            int annCounter = 0;
+            while (annCounter < annotations[i].length && !(annotations[i][annCounter] instanceof ParamDescription)) {
+                annCounter++;
+            }
+            if (annCounter < annotations[i].length) {
+                @SuppressWarnings("unchecked")
+                ParamDescription paramDesc = (ParamDescription) annotations[i][annCounter];
+                result[i] = paramDesc.value();
+            }
+        }
+
+        return result;
     }
 }
