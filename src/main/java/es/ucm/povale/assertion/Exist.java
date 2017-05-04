@@ -72,18 +72,9 @@ public class Exist implements Assertion {
 
         ListEntity list = (ListEntity) term.evaluate(env);
         boolean result = false;
-        String defaultMessage = "Existe un elemento " + variable + " en " + term.toString() +
-                " tal que cumple: ";
         String finalMessage;
-  
-        if(message == null){
-            finalMessage = defaultMessage;
-        }
-        else {
-            finalMessage = message;
-        }
         
-        AssertInformation exist = new AssertInformation(finalMessage, null);
+        AssertInformation exist = new AssertInformation("", null);
         
         Entity oldValue = env.getValues().get(variable);
                 
@@ -104,6 +95,16 @@ public class Exist implements Assertion {
         else{
             env.getValues().remove(variable);
         }
+       
+  
+        if(message == null){
+            finalMessage = "Existe un elemento " + '"' + variable + '"' + " en " + term.toString() +
+        " tal que cumple: ";
+        }
+        else {
+            finalMessage = message;
+        }
+        exist.setMessage(finalMessage);
 
         return exist;
     }

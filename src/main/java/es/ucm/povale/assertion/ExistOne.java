@@ -65,19 +65,11 @@ public class ExistOne implements Assertion {
     public AssertInformation check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
-        boolean result = false;
-        String defaultMessage = "Existe solo un elemento " + variable + " en " + term.toString() +
-                " tal que cumple: ";
+        boolean result = false; 
         String finalMessage;
         
-        if(message == null){
-            finalMessage = defaultMessage;
-        }
-        else {
-            finalMessage = message;
-        }
-        
-        AssertInformation existOne = new AssertInformation(finalMessage, null);
+   
+        AssertInformation existOne = new AssertInformation("", null);
         
         Entity oldValue = env.getValues().get(variable);
         
@@ -104,6 +96,14 @@ public class ExistOne implements Assertion {
         else{
             env.getValues().remove(variable);
         }
+        if(message == null){
+            finalMessage = "Existe solo un elemento " + '"' + variable + '"' + " en " + term.toString() +
+                " tal que cumple: ";
+        }
+        else {
+            finalMessage = message;
+        }
+        existOne.setMessage(finalMessage);
         
         return existOne;
     }

@@ -25,7 +25,6 @@ package es.ucm.povale.term;
 
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
-import es.ucm.povale.term.Term;
 
 public class Variable implements Term {
 	

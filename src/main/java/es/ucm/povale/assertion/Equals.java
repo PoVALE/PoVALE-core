@@ -74,10 +74,10 @@ public class Equals implements Assertion {
         String defaultMessage = " es igual a ";
         String finalMessage;
         if(message == null){
-            finalMessage = l.toString() + defaultMessage + r.toString();
+            finalMessage = '"' + l.toString() + '"' + defaultMessage + '"' + r.toString() + '"';
         }
         else{
-            finalMessage = l.toString() + message + r.toString();
+            finalMessage = '"' + l.toString() + '"' + message + '"' + r.toString() + '"';
         }
 
         return new AssertInformation(finalMessage, l.equals(r));

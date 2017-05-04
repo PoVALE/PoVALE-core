@@ -29,6 +29,7 @@ import java.util.List;
 import es.ucm.povale.entity.Entity;
 import es.ucm.povale.environment.Environment;
 import es.ucm.povale.function.Function;
+import java.lang.String;
 
 
 public class FunctionApplication implements Term {
@@ -42,6 +43,10 @@ public class FunctionApplication implements Term {
         this.args = args;
     }
     
+    public String getFunction(){
+        return function;
+    }
+    
 
     @Override
     public Entity evaluate(Environment env) {
@@ -52,8 +57,11 @@ public class FunctionApplication implements Term {
         args.stream().forEach((t) -> {
             list.add(t.evaluate(env));
         });
-        message = f.getMessage(list.toArray(new Entity[list.size()]));
-        return f.call(list.toArray(new Entity[list.size()]));
+        Entity e = f.call(list.toArray(new Entity[list.size()]));
+
+        message = f.getMessage();
+
+        return e;
         
         
     }

@@ -77,17 +77,24 @@ public class PredicateApplication implements Assertion {
         });
         
         Predicate p = env.getPredicate(predicate);
-        String defaultMessage = list.get(0).toString() + p.getMessage(list.toArray(new Entity[list.size()]));
         String finalMessage;
+
+        if (!p.call(list.toArray(new Entity[list.size()]))) {
+            result = false;
+        }
+        
         if(message == null){
-            finalMessage = defaultMessage;
+            finalMessage =  list.get(0).toString();
+            String aux[] = p.getParamDescriptions();
+            for(String s: aux){
+                if(s != null){
+                    finalMessage+=s;
+                }
+            }
         }
         else{
             finalMessage = message;
         }   
-        if (!p.call(list.toArray(new Entity[list.size()]))) {
-            result = false;
-        }
        
         return new AssertInformation(finalMessage, result);
     }

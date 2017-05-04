@@ -70,19 +70,10 @@ public class ForAll implements Assertion {
     public AssertInformation check(Environment env) {
 
         ListEntity list = (ListEntity) term.evaluate(env);
-        boolean result = true;
-        String defaultMessage = "Para todo elemento " + variable + " en " + term.toString() +
-                " cumple: ";      
+        boolean result = true;      
         String finalMessage;
         
-        if(message == null){
-            finalMessage = defaultMessage;
-        }
-        else {
-            finalMessage = message;
-        }
-        
-        AssertInformation forAll = new AssertInformation(finalMessage, null);
+        AssertInformation forAll = new AssertInformation("", null);
         Entity oldValue = env.getValues().get(variable);
         
         for (Entity e : list.getList()) {
@@ -103,7 +94,16 @@ public class ForAll implements Assertion {
         else{
             env.getValues().remove(variable);
         }
-
+        
+        if(message == null){
+            finalMessage = "Para todo elemento " + '"' + variable + '"' + " en " + term.toString() +
+                " cumple: ";
+        }
+        else {
+            finalMessage = message;
+        }
+        forAll.setMessage(finalMessage);
+        
         return forAll;
     }
 

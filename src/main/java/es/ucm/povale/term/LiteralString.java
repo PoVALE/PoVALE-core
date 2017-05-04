@@ -40,4 +40,9 @@ public class LiteralString implements Term {
     public Entity evaluate(Environment env){
         return string;
     }
+    
+    @Override
+    public String toString(){
+        return string.toString();
+    }
 }

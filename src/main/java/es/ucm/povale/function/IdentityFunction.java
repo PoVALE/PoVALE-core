@@ -31,8 +31,12 @@ public class IdentityFunction extends Function {
         return elt;
     }
 
-    @Override
     public String getName() {
         return "identity";
+    }
+
+    @Override
+    public String getMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

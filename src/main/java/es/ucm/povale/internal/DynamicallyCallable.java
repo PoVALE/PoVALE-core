@@ -90,6 +90,8 @@ public abstract class DynamicallyCallable<P, R> {
         }
         return current;
     }
+    
+    
 
     /**
      * Get the arity of the callable.
@@ -121,6 +123,8 @@ public abstract class DynamicallyCallable<P, R> {
             throw new RuntimeException(e);
         }
     }
+    
+    public abstract String getMessage();
 
     /**
      * Typechecks a specific method of the object.

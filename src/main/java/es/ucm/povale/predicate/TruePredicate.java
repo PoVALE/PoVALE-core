@@ -36,4 +36,9 @@ public class TruePredicate extends Predicate {
     public String getName() {
         return "true";
     }
+
+    @Override
+    public String getMessage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
